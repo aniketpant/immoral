@@ -22,7 +22,8 @@ $(document).ready(function() {
       modalStyle: {
         width: '980px',
         height: '90%',
-        margin: '0 auto'          }
+        margin: '0 auto'
+      }
     }
     $.immoral(options);
     $(this).immoral();
