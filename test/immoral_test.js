@@ -20,7 +20,7 @@
       throws(block, [expected], [message])
   */
 
-  module('jQuery#awesome', {
+  module('jQuery#immoral', {
     // This will run before each test in this module.
     setup: function() {
       this.elems = $('#qunit-fixture').children();
@@ -30,33 +30,33 @@
   test('is chainable', function() {
     expect(1);
     // Not a bad test to run on collection methods.
-    strictEqual(this.elems.awesome(), this.elems, 'should be chainable');
+    strictEqual(this.elems.immoral(), this.elems, 'should be chainable');
   });
 
-  test('is awesome', function() {
+  test('is immoral', function() {
     expect(1);
-    strictEqual(this.elems.awesome().text(), 'awesome0awesome1awesome2', 'should be awesome');
+    strictEqual(this.elems.immoral().text(), 'immoral0immoral1immoral2', 'should be immoral');
   });
 
-  module('jQuery.awesome');
+  module('jQuery.immoral');
 
-  test('is awesome', function() {
+  test('is immoral', function() {
     expect(2);
-    strictEqual($.awesome(), 'awesome.', 'should be awesome');
-    strictEqual($.awesome({punctuation: '!'}), 'awesome!', 'should be thoroughly awesome');
+    strictEqual($.immoral(), 'immoral.', 'should be immoral');
+    strictEqual($.immoral({punctuation: '!'}), 'immoral!', 'should be thoroughly immoral');
   });
 
-  module(':awesome selector', {
+  module(':immoral selector', {
     // This will run before each test in this module.
     setup: function() {
       this.elems = $('#qunit-fixture').children();
     }
   });
 
-  test('is awesome', function() {
+  test('is immoral', function() {
     expect(1);
     // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':awesome').get(), this.elems.last().get(), 'knows awesome when it sees it');
+    deepEqual(this.elems.filter(':immoral').get(), this.elems.last().get(), 'knows immoral when it sees it');
   });
 
 }(jQuery));

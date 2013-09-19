@@ -1,6 +1,6 @@
 # Immoral
 
-A spunky clean flexible no-forced-design modal library
+A spunky clean flexible no-forced-design modal library.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -14,8 +14,19 @@ In your web page:
 <script src="jquery.js"></script>
 <script src="dist/immoral.min.js"></script>
 <script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
+$(document).ready(function() {
+  $('a[rel=modal]').click(function(e) {
+    e.preventDefault();
+    $('#modal_demo_page .modal--content').append('<iframe src="//localhost/" seamless></iframe>');
+    var options = {
+      modalStyle: {
+        width: '980px',
+        height: '90%',
+        margin: '0 auto'          }
+    }
+    $.immoral(options);
+    $(this).immoral();
+  });
 });
 </script>
 ```
