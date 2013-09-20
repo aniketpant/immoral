@@ -11,18 +11,16 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-      $('a[rel=modal]').click(function(e) {
-        e.preventDefault();
-        $('#modal_demo_page .modal--content').append('<iframe src="//localhost/" seamless></iframe>');
-        var options = {
-          modalStyle: {
-            width: '980px',
-            height: '90%',
-            margin: '0 auto'          }
+      var options = {
+        content: '<iframe src="//localhost/" seamless></iframe>',
+        modalStyle: {
+          width: '980px',
+          height: '90%',
+          margin: '0 auto'
         }
-        $.immoral(options);
-        $(this).immoral();
-      });
+      };
+      $.immoral(options);
+      $('a[rel="modal"]').immoral();
     });
   </script>
 </head>

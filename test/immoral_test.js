@@ -27,36 +27,10 @@
     }
   });
 
-  test('is chainable', function() {
-    expect(1);
-    // Not a bad test to run on collection methods.
-    strictEqual(this.elems.immoral(), this.elems, 'should be chainable');
-  });
-
-  test('is immoral', function() {
-    expect(1);
-    strictEqual(this.elems.immoral().text(), 'immoral0immoral1immoral2', 'should be immoral');
-  });
-
-  module('jQuery.immoral');
-
-  test('is immoral', function() {
+  test('options', function() {
     expect(2);
-    strictEqual($.immoral(), 'immoral.', 'should be immoral');
-    strictEqual($.immoral({punctuation: '!'}), 'immoral!', 'should be thoroughly immoral');
-  });
-
-  module(':immoral selector', {
-    // This will run before each test in this module.
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
-
-  test('is immoral', function() {
-    expect(1);
-    // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':immoral').get(), this.elems.last().get(), 'knows immoral when it sees it');
+    strictEqual($.immoral(), 'immoralized', 'should be immoral');
+    strictEqual($.immoral({modalStyle:{width: '50%',height: '50%',margin: '0 auto'}}), 'immoralized', 'should be thoroughly immoral');
   });
 
 }(jQuery));

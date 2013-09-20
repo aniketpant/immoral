@@ -14,12 +14,20 @@
       // Initialize Modal Shadow
       modalShadowInit();
 
-      // Open modal
+      return this;
+    });
+    $('a[rel="modal"]').click(function(e) {
+      e.preventDefault();
+      var element = $(this).attr('href');
+
+      // Open
       $.open(element);
     });
     $('.modal').on('click', 'a[rel="modal:close"]', function(e) {
-      var element = $(this).attr('href');
       e.preventDefault();
+      var element = $(this).attr('id');
+
+      // Close
       $.close(element);
     });
   };
@@ -53,6 +61,8 @@
 
     if (modalObj.parent('.modal-wrapper').attr('class') !== 'modal-wrapper') {
       modalObj.wrap(options.modalWrapper);
+
+      $('#' + modalObjName + ' .modal--content').append(options.content);
 
       // apply styles
       modalObj.css(options.modalStyle).show();
@@ -96,6 +106,7 @@
 
   // Static method default options.
   $.immoral.options = {
+    content: '',
     modalShadowDiv: '<div id="modal_shadow" style="display:none;"></div>',
     modalWrapper: '<div class="modal-wrapper" />',
     modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
