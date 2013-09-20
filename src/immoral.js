@@ -10,15 +10,22 @@
 
   // Collection method.
   $.fn.immoral = function() {
-    return this.each(function() {
-      // Do something immoral to each selected element.
-      init($(this).attr('href'));
+    this.each(function() {
+      var element = $(this).attr('href');
 
-      $('.modal').on('click', 'a[rel="modal:close"]', function(e) {
-        e.preventDefault();
-        var parentModal = '#' + $(this).closest('.modal').attr('id');
-        modalClose(parentModal);
-      });
+      // Do something immoral to each selected element.
+      init(element);
+
+      // Initialize Modal Shadow
+      modalShadowInit();
+
+      // Open modal
+      $.open(element);
+    });
+    $('.modal').on('click', 'a[rel="modal:close"]', function(e) {
+      var element = $(this).attr('href');
+      e.preventDefault();
+      $.close(element);
     });
   };
 
@@ -31,51 +38,66 @@
   };
 
   function modalShadowInit() {
-    var modalShadow = $.immoral.options.modalShadow;
+    // Get Options
+    var options = $.immoral.options;
+
+    var modalShadow = options.modalShadow;
+
     if(!modalShadow) {
-      $('body').append($.immoral.options.modalShadowDiv);
-      $.immoral.options.modalShadow = $('#modal_shadow');
+      $('body').append(options.modalShadowDiv);
+      options.modalShadow = $('#modal_shadow');
     }
   }
 
   function init(element) {
+    // Get Options
+    var options = $.immoral.options;
+
     var modalObj = $(element);
     var modalObjName = modalObj.attr('id');
-    modalObj.wrap($.immoral.options.modalWrapper);
+
+    if (modalObj.parent('.modal-wrapper').attr('class') !== 'modal-wrapper') {
+      modalObj.wrap(options.modalWrapper);
+
+      // apply styles
+      modalObj.css(options.modalStyle).show();
+
+      // Add close Button
+      $(options.modalCloseButton).attr('id', modalObjName + '_close');
+      modalObj.prepend(options.modalCloseButton);
+    }
+
     var modalWhole = modalObj.parent('.modal-wrapper');
 
     // Hide the whole thing.
     modalWhole.hide().attr('id', modalObjName + '-wrapper');
-
-    // apply styles
-    modalObj.css($.immoral.options.modalStyle).show();
-
-    // Add close Button
-    $($.immoral.options.modalCloseButton).attr('id', modalObjName + '_close');
-    modalObj.prepend($.immoral.options.modalCloseButton);
-
-    // Initialize Modal Shadow
-    modalShadowInit();
-    modalOn(element);
   }
 
-  function modalOn(element) {
-    var modalWhole = $(element).parent();
-    var modalShadow = $.immoral.options.modalShadow;
+  $.open = function(element) {
+    // Get Options
+    var options = $.immoral.options;
+
+    var modalWhole = $(element).parent('.modal-wrapper');
+    var modalShadow = options.modalShadow;
+
     modalShadow.fadeIn();
     modalWhole.fadeIn();
-  }
+  };
 
-  function modalClose(element) {
-    if(element) {
+  $.close = function(element) {
+    // Get Options
+    var options = $.immoral.options;
+
+    if (element) {
       var modalWhole = $(element).parent('.modal-wrapper');
       modalWhole.fadeOut();
     } else {
       $('.modal').parent().fadeOut();
     }
-    var modalShadow = $.immoral.options.modalShadow;
+
+    var modalShadow = options.modalShadow;
     modalShadow.fadeOut();
-  }
+  };
 
   // Static method default options.
   $.immoral.options = {
@@ -88,12 +110,6 @@
       height: '50%',
       margin: '0 auto'
     }
-  };
-
-  // Custom element.
-  $.expr[':'].immoral = function(elem) {
-    // Is this element immoral?
-    return $(elem).text().indexOf('immoral') !== -1;
   };
 
 }(jQuery));
