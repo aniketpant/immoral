@@ -135,5 +135,17 @@ var options = {
 $.immoral(options);
 ```
 
+Manually open a modal.
+
+```js
+$('your-modal-selector').immoral().open();
+```
+
+Manually close a modal.
+
+```js
+$('your-modal-selector').immoral().close();
+```
+
 ## Release History
 _(Nothing yet)_
