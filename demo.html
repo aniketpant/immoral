@@ -6,7 +6,6 @@
   <!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
   <script src="../libs/jquery-loader.js"></script>
   <!-- Load local lib and tests. -->
-  <link rel="stylesheet" type="text/css" href="../src/immoral.css">
   <script src="../src/immoral.js"></script>
 
   <script type="text/javascript">
@@ -14,9 +13,10 @@
       var options = {
         content: '<iframe src="//localhost/" seamless></iframe>',
         modalStyle: {
-          width: '980px',
-          height: '90%',
-          margin: '0 auto'
+          'width': '980px',
+          'height': '90%',
+          'margin': '0 auto',
+          'background': 'white',
         }
       };
       $.immoral(options);
@@ -36,7 +36,7 @@
   </footer>
 
   <div id="modal_demo_page" class="modal" style="display: none;">
-    <div class="modal--content format_text">
+    <div class="modal-content format_text">
     </div>
   </div><!-- #modal_demo_page -->
 </body>

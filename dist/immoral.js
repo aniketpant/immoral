@@ -12,6 +12,9 @@
       // Initialize Modal Shadow
       modalShadowInit();
 
+      // Apply styles
+      applyStyles(this);
+
       $('body').on('click', 'a[rel="modal"]', function(e) {
         e.preventDefault();
         var element = $(this).attr('href');
@@ -37,8 +40,12 @@
     var modalShadow = options.modalShadow;
 
     if(!modalShadow) {
-      $('body').append(options.modalShadowDiv);
-      options.modalShadow = $('#modal_shadow');
+      $('body').append('<div class="' + options.modalShadowClass + '" style="display: none;"></div>');
+      $.immoral(
+        {
+          'modalShadow': $('.' + options.modalShadowClass)
+        }
+      );
     }
   }
 
@@ -49,20 +56,17 @@
     var modalObj = $(element);
     var modalObjName = modalObj.attr('id');
 
-    if (modalObj.parent('.modal-wrapper').attr('class') !== 'modal-wrapper') {
+    if (modalObj.parent('.' + options.modalWrapperClass).attr('class') !== options.modalWrapperClass) {
       modalObj.wrap(options.modalWrapper);
 
-      $('#' + modalObjName + ' .modal--content').append(options.content);
-
-      // apply styles
-      modalObj.css(options.modalStyle).show();
+      $('#' + modalObjName + ' .' + options.modalContentClass).append(options.content);
 
       // Add close Button
       $(options.modalCloseButton).attr('id', modalObjName + '_close');
       modalObj.prepend(options.modalCloseButton);
     }
 
-    var modalWhole = modalObj.parent('.modal-wrapper');
+    var modalWhole = modalObj.parent('.' + options.modalWrapperClass);
 
     // Hide the whole thing.
     modalWhole.hide().attr('id', modalObjName + '-wrapper');
@@ -73,7 +77,7 @@
     // Get Options
     var options = $.immoral.options;
 
-    var modalWhole = $(element).parent('.modal-wrapper');
+    var modalWhole = $(element).parent('.' + options.modalWrapperClass);
     var modalShadow = options.modalShadow;
 
     modalShadow.fadeIn();
@@ -86,7 +90,7 @@
     var options = $.immoral.options;
 
     if (element) {
-      var modalWhole = $(element).parent('.modal-wrapper');
+      var modalWhole = $(element).parent('.' + options.modalWrapperClass);
       modalWhole.fadeOut();
     } else {
       $('.modal').parent().fadeOut();
@@ -94,6 +98,24 @@
 
     var modalShadow = options.modalShadow;
     modalShadow.fadeOut();
+  }
+
+  // Private function to apply default styles
+  function applyStyles(element) {
+    // Get Options
+    var options = $.immoral.options;
+
+    // Applying modal shadow styles
+    $('.' + options.modalShadowClass).css(options.modalShadowStyle);
+
+    // Applying modal wrapper styles
+    $('.' + options.modalWrapperClass).css(options.modalWrapperStyle);
+
+    // applying modal content styles
+    $('.' + options.modalContentClass).css(options.modalContentStyle);
+
+    // applying modal styles
+    $(element).css(options.modalStyle).show();
   }
 
   // Method for opening a modal
@@ -117,14 +139,43 @@
   // Static method default options.
   $.immoral.options = {
     content: '',
-    modalShadowDiv: '<div id="modal_shadow" style="display:none;"></div>',
+    modalShadowClass: 'modal-shadow',
     modalWrapper: '<div class="modal-wrapper" />',
+    modalWrapperClass: 'modal-wrapper',
     modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
+    modalContentClass: 'modal-content',
     modalShadow: false,
     modalStyle: {
-      width: '50%',
-      height: '50%',
-      margin: '0 auto'
+      'width': '50%',
+      'height': '50%',
+      'margin': '0 auto',
+      'background': 'white',
+      'text-align': 'left',
+    },
+    modalShadowStyle: {
+      'position': 'fixed',
+      'z-index': '10000000',
+      'background': 'rgba(0,0,0,0.5)',
+      'width': '100%',
+      'height': '100%',
+      'left': '0px',
+      'top': '0px',
+    },
+    modalWrapperStyle: {
+      'width': '100%',
+      'margin': '0px',
+      'position': 'fixed',
+      'top': '0px',
+      'left': '0px',
+      'height': '100%',
+      'display': 'none',
+      'z-index': 10000001,
+      'background': 'transparent',
+      'text-align': 'center',
+    },
+    modalContentStyle: {
+      'width': '100%',
+      'height': '100%',
     }
   };
 
