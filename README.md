@@ -149,4 +149,4 @@ $('your-modal-selector').immoral().close();
 ```
 
 ## Release History
-_(Nothing yet)_
+v0.1.0 - Sep 23, 2013
