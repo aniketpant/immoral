@@ -17,7 +17,7 @@
       // Initialize Modal Shadow
       modalShadowInit();
 
-      $('a[rel="modal"]').click(function(e) {
+      $('body').on('click', 'a[rel="modal"]', function(e) {
         e.preventDefault();
         var element = $(this).attr('href');
 
@@ -34,14 +34,7 @@
     });
   };
 
-  // Static method.
-  $.immoral = function(options) {
-    // Override default options with passed-in options.
-    $.immoral.options = $.extend({}, $.immoral.options, options);
-    // Return something immoral.
-    return 'immoralized';
-  };
-
+  // Initialize modal shadow
   function modalShadowInit() {
     // Get Options
     var options = $.immoral.options;
@@ -80,6 +73,7 @@
     modalWhole.hide().attr('id', modalObjName + '-wrapper');
   }
 
+  // Private function for opening modal
   function openModal(element) {
     // Get Options
     var options = $.immoral.options;
@@ -91,6 +85,7 @@
     modalWhole.fadeIn();
   }
 
+  // Private function for closing modal
   function closeModal(element) {
     // Get Options
     var options = $.immoral.options;
@@ -106,12 +101,22 @@
     modalShadow.fadeOut();
   }
 
+  // Method for opening a modal
   $.fn.open = function() {
     openModal(this);
   };
 
+  // Method for closing a modal
   $.fn.close = function() {
     closeModal(this);
+  };
+
+  // Static method.
+  $.immoral = function(options) {
+    // Override default options with passed-in options.
+    $.immoral.options = $.extend({}, $.immoral.options, options);
+    // Return something immoral.
+    return 'immoralized';
   };
 
   // Static method default options.
