@@ -70,6 +70,7 @@ The following options are available at the moment.
 ```js
 {
   content: '',
+  modalClass: 'modal',
   modalShadowClass: 'modal-shadow',
   modalWrapper: '<div class="modal-wrapper" />',
   modalWrapperClass: 'modal-wrapper',
