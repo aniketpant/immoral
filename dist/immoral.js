@@ -22,7 +22,7 @@
         // Open
         openModal(element);
       });
-      $('.modal').on('click', 'a[rel="modal:close"]', function(e) {
+      $('.' + $.immoral.options.modalClass).on('click', 'a[rel="modal:close"]', function(e) {
         e.preventDefault();
         var element = $(this).attr('id');
 
@@ -93,7 +93,7 @@
       var modalWhole = $(element).parent('.' + options.modalWrapperClass);
       modalWhole.fadeOut();
     } else {
-      $('.modal').parent().fadeOut();
+      $('.' + options.modalClass).parent().fadeOut();
     }
 
     var modalShadow = options.modalShadow;
@@ -139,6 +139,7 @@
   // Static method default options.
   $.immoral.options = {
     content: '',
+    modalClass: 'modal',
     modalShadowClass: 'modal-shadow',
     modalWrapper: '<div class="modal-wrapper" />',
     modalWrapperClass: 'modal-wrapper',
