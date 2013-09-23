@@ -15,28 +15,65 @@ In your web page:
 <script src="dist/immoral.min.js"></script>
 <script>
 $(document).ready(function() {
-  $('a[rel=modal]').click(function(e) {
-    e.preventDefault();
-    $('#modal_demo_page .modal--content').append('<iframe src="//localhost/" seamless></iframe>');
+  $(document).ready(function() {
     var options = {
+      content: '<iframe src="//localhost/" seamless></iframe>',
       modalStyle: {
         width: '980px',
         height: '90%',
         margin: '0 auto'
       }
-    }
+    };
     $.immoral(options);
-    $(this).immoral();
+    $('#modal_demo_page').immoral();
   });
 });
 </script>
 ```
 
 ## Documentation
-_(Coming soon)_
+
+### Setting options
+
+Options can be set using the `$.immoral` method.
+
+The following options are available at the moment.
+```js
+content: '',
+modalShadowDiv: '<div id="modal_shadow" style="display:none;"></div>',
+modalWrapper: '<div class="modal-wrapper" />',
+modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
+modalShadow: false,
+modalStyle: {
+  width: '50%',
+  height: '50%',
+  margin: '0 auto'
+}
+```
+
+### Opening modal
+
+Use `$(selector).immoral().open()` to open a modal.
+
+### Closing modal
+
+Use `$(selector).immoral().close()` to open a modal.
 
 ## Examples
-_(Coming soon)_
+
+To set your own options for immoral, you can use the following code.
+
+```js
+var options = {
+  content: '<iframe src="//localhost/" seamless></iframe>',
+  modalStyle: {
+    width: '980px',
+    height: '90%',
+    margin: '0 auto'
+  }
+};
+$.immoral(options);
+```
 
 ## Release History
 _(Nothing yet)_

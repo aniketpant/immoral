@@ -1,34 +1,31 @@
-/*! Immoral - v0.1.0 - 2013-09-20
+/*! Immoral - v0.1.0 - 2013-09-23
 * https://github.com/aniketpant/immoral
 * Copyright (c) 2013 Aniket Pant; Licensed MIT */
 (function($) {
 
   // Collection method.
   $.fn.immoral = function() {
-    this.each(function() {
-      var element = $(this).attr('href');
-
+    return this.each(function() {
       // Do something immoral to each selected element.
-      init(element);
+      init(this);
 
       // Initialize Modal Shadow
       modalShadowInit();
 
-      return this;
-    });
-    $('a[rel="modal"]').click(function(e) {
-      e.preventDefault();
-      var element = $(this).attr('href');
+      $('a[rel="modal"]').click(function(e) {
+        e.preventDefault();
+        var element = $(this).attr('href');
 
-      // Open
-      $.open(element);
-    });
-    $('.modal').on('click', 'a[rel="modal:close"]', function(e) {
-      e.preventDefault();
-      var element = $(this).attr('id');
+        // Open
+        openModal(element);
+      });
+      $('.modal').on('click', 'a[rel="modal:close"]', function(e) {
+        e.preventDefault();
+        var element = $(this).attr('id');
 
-      // Close
-      $.close(element);
+        // Close
+        closeModal(element);
+      });
     });
   };
 
@@ -78,7 +75,7 @@
     modalWhole.hide().attr('id', modalObjName + '-wrapper');
   }
 
-  $.open = function(element) {
+  function openModal(element) {
     // Get Options
     var options = $.immoral.options;
 
@@ -87,9 +84,9 @@
 
     modalShadow.fadeIn();
     modalWhole.fadeIn();
-  };
+  }
 
-  $.close = function(element) {
+  function closeModal(element) {
     // Get Options
     var options = $.immoral.options;
 
@@ -102,6 +99,14 @@
 
     var modalShadow = options.modalShadow;
     modalShadow.fadeOut();
+  }
+
+  $.fn.open = function() {
+    openModal(this);
+  };
+
+  $.fn.close = function() {
+    closeModal(this);
   };
 
   // Static method default options.
