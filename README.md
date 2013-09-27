@@ -24,17 +24,15 @@ $(document).ready(function() {
         'margin': '0 auto'
       }
     };
-    $.immoral(options);
-    $('#modal_demo_page').immoral();
+    $('#modal_demo_page').immoral(options);
   });
 });
 </script>
-
 <p>This will open a <a href="#modal_demo_page" rel="modal">modal</a>.</p>
 <div id="modal_demo_page" class="modal" style="display: none;">
   <div class="modal-content">
   </div>
-</div><!-- #modal_demo_page -->
+</div>
 ```
 
 ## Usage
@@ -57,13 +55,12 @@ General structure of a modal should be this.
 `.modal-content` is important because immoral wraps the entire `.modal` with a wrapper.
 
 ## Documentation
-immoral provides three methods:
-- `option`
+immoral provides the following methods:
 - `open`
 - `close`
 
-### Options
-Options can be set using the `$.immoral(options)` method.
+### Setting Options
+Options can be set using the `$(selector).immoral(options)` method.
 
 The following options are available at the moment.
 
@@ -133,20 +130,21 @@ var options = {
     'margin': '0 auto'
   }
 };
-$.immoral(options);
+$(selector).immoral(options);
 ```
 
 Manually open a modal.
 
 ```js
-$('your-modal-selector').immoral().open();
+$(selector).immoral().open();
 ```
 
 Manually close a modal.
 
 ```js
-$('your-modal-selector').immoral().close();
+$(selector).immoral().close();
 ```
 
 ## Release History
-v0.1.0 - Sep 23, 2013
+- v0.1.1 - Sep 27, 2013
+- v0.1.0 - Sep 23, 2013
