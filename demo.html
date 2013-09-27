@@ -10,7 +10,7 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-      var options = {
+      var options1 = {
         content: '<iframe src="//localhost/" seamless></iframe>',
         modalStyle: {
           'width': '980px',
@@ -19,8 +19,17 @@
           'background': 'white',
         }
       };
-      $.immoral(options);
-      $('#modal_demo_page').immoral();
+      $('#modal_demo_page1').immoral(options1);
+      var options2 = {
+        content: '<iframe src="//localhost/info.php" seamless></iframe>',
+        modalStyle: {
+          'width': '980px',
+          'height': '90%',
+          'margin': '0 auto',
+          'background': '#eee',
+        }
+      };
+      $('#modal_demo_page2').immoral(options2);
     });
   </script>
 </head>
@@ -29,13 +38,18 @@
     <h1>Immoral</h1>
   </header>
   <section role="main">
-    <p>This will open a <a href="#modal_demo_page" rel="modal">modal</a>.</p>
+    <p>This will open a <a href="#modal_demo_page1" rel="modal">modal</a>.</p>
+    <p>This will open another <a href="#modal_demo_page2" rel="modal">modal</a>.</p>
   </section>
   <footer role="contentinfo">
     <p>A spunky clean flexible no-forced-design modal library.</p>
   </footer>
 
-  <div id="modal_demo_page" class="modal" style="display: none;">
+  <div id="modal_demo_page1" class="modal" style="display: none;">
+    <div class="modal-content">
+    </div>
+  </div><!-- #modal_demo_page -->
+  <div id="modal_demo_page2" class="modal" style="display: none;">
     <div class="modal-content">
     </div>
   </div><!-- #modal_demo_page -->

@@ -9,7 +9,52 @@
 (function($) {
 
   // Collection method.
-  $.fn.immoral = function() {
+  $.fn.immoral = function(options) {
+    var globals = {
+      content: '',
+      modalClass: 'modal',
+      modalShadowClass: 'modal-shadow',
+      modalWrapper: '<div class="modal-wrapper" />',
+      modalWrapperClass: 'modal-wrapper',
+      modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
+      modalContentClass: 'modal-content',
+      modalShadow: false,
+      modalStyle: {
+        'width': '50%',
+        'height': '50%',
+        'margin': '0 auto',
+        'background': 'white',
+        'text-align': 'left',
+      },
+      modalShadowStyle: {
+        'position': 'fixed',
+        'z-index': '10000000',
+        'background': 'rgba(0,0,0,0.5)',
+        'width': '100%',
+        'height': '100%',
+        'left': '0px',
+        'top': '0px',
+      },
+      modalWrapperStyle: {
+        'width': '100%',
+        'margin': '0px',
+        'position': 'fixed',
+        'top': '0px',
+        'left': '0px',
+        'height': '100%',
+        'display': 'none',
+        'z-index': 10000001,
+        'background': 'transparent',
+        'text-align': 'center',
+      },
+      modalContentStyle: {
+        'width': '100%',
+        'height': '100%',
+      }
+    };
+
+    $.immoral.settings = $.extend(true, {}, globals, options);
+
     return this.each(function() {
       // Do something immoral to each selected element.
       init(this);
@@ -27,7 +72,7 @@
         // Open
         openModal(element);
       });
-      $('.' + $.immoral.options.modalClass).on('click', 'a[rel="modal:close"]', function(e) {
+      $('.' + $.immoral.settings.modalClass).on('click', 'a[rel="modal:close"]', function(e) {
         e.preventDefault();
         var element = $(this).attr('id');
 
@@ -40,7 +85,7 @@
   // Initialize modal shadow
   function modalShadowInit() {
     // Get Options
-    var options = $.immoral.options;
+    var options = $.immoral.settings;
 
     var modalShadow = options.modalShadow;
 
@@ -56,7 +101,7 @@
 
   function init(element) {
     // Get Options
-    var options = $.immoral.options;
+    var options = $.immoral.settings;
 
     var modalObj = $(element);
     var modalObjName = modalObj.attr('id');
@@ -80,7 +125,7 @@
   // Private function for opening modal
   function openModal(element) {
     // Get Options
-    var options = $.immoral.options;
+    var options = $.immoral.settings;
 
     var modalWhole = $(element).parent('.' + options.modalWrapperClass);
     var modalShadow = options.modalShadow;
@@ -92,7 +137,7 @@
   // Private function for closing modal
   function closeModal(element) {
     // Get Options
-    var options = $.immoral.options;
+    var options = $.immoral.settings;
 
     if (element) {
       var modalWhole = $(element).parent('.' + options.modalWrapperClass);
@@ -108,7 +153,7 @@
   // Private function to apply default styles
   function applyStyles(element) {
     // Get Options
-    var options = $.immoral.options;
+    var options = $.immoral.settings;
 
     // Applying modal shadow styles
     $('.' + options.modalShadowClass).css(options.modalShadowStyle);
@@ -136,53 +181,9 @@
   // Static method.
   $.immoral = function(options) {
     // Override default options with passed-in options.
-    $.immoral.options = $.extend({}, $.immoral.options, options);
+    $.immoral.settings = $.extend(true, {}, $.immoral.settings, options);
     // Return something immoral.
     return 'immoralized';
-  };
-
-  // Static method default options.
-  $.immoral.options = {
-    content: '',
-    modalClass: 'modal',
-    modalShadowClass: 'modal-shadow',
-    modalWrapper: '<div class="modal-wrapper" />',
-    modalWrapperClass: 'modal-wrapper',
-    modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
-    modalContentClass: 'modal-content',
-    modalShadow: false,
-    modalStyle: {
-      'width': '50%',
-      'height': '50%',
-      'margin': '0 auto',
-      'background': 'white',
-      'text-align': 'left',
-    },
-    modalShadowStyle: {
-      'position': 'fixed',
-      'z-index': '10000000',
-      'background': 'rgba(0,0,0,0.5)',
-      'width': '100%',
-      'height': '100%',
-      'left': '0px',
-      'top': '0px',
-    },
-    modalWrapperStyle: {
-      'width': '100%',
-      'margin': '0px',
-      'position': 'fixed',
-      'top': '0px',
-      'left': '0px',
-      'height': '100%',
-      'display': 'none',
-      'z-index': 10000001,
-      'background': 'transparent',
-      'text-align': 'center',
-    },
-    modalContentStyle: {
-      'width': '100%',
-      'height': '100%',
-    }
   };
 
 }(jQuery));
