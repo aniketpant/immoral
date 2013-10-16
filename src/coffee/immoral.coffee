@@ -8,19 +8,21 @@
 
 $ = jQuery
 
-$ ->
+if !$
+  return false
 
-  # Collection method.
+$ ->
   $.fn.immoral = (options) ->
+    # Global Settings
     globals = {
       content: '',
       modalClass: 'modal',
       modalShadowClass: 'modal-shadow',
-      modalWrapper: '<div class="modal-wrapper" />',
-      modalWrapperClass: 'modal-wrapper',
+      modalContainerClass: 'modal-container',
       modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
       modalContentClass: 'modal-content',
       modalShadow: false,
+      modalContainer: false,
       modalStyle: {
         'width': '50%',
         'height': '50%',
@@ -37,7 +39,7 @@ $ ->
         'left': '0px',
         'top': '0px',
       },
-      modalWrapperStyle: {
+      modalContainerStyle: {
         'width': '100%',
         'margin': '0px',
         'position': 'fixed',
@@ -45,7 +47,7 @@ $ ->
         'left': '0px',
         'height': '100%',
         'display': 'none',
-        'z-index': 10000001,
+        'z-index': '10000001',
         'background': 'transparent',
         'text-align': 'center',
       },
@@ -58,99 +60,103 @@ $ ->
     $.immoral.settings = $.extend true, {}, globals, options
 
     return this.each ->
-      # Do something immoral to each selected element.
-      init(this)
+      modalShadowInit() #Initialize modal shadow
+      modalContainerInit() # Initialize modal container
+      eventHandler(this) # Handle the events
 
-      # Initialize modal shadow
-      modalShadowInit()
-
-      # Apply styles
-      applyStyles(this)
-
-      $('body').on 'click', 'a[rel="modal"]', (e) ->
-        e.preventDefault()
-        element = $(this).attr('href')
-        openModal(element) # Open
-      $('.' + $.immoral.settings.modalClass).on 'click', 'a[rel="modal:close"]', (e) ->
-        e.preventDefault()
-        element = $(this).attr('id')
-        closeModal(element) # Close
+  # Handles the click events
+  eventHandler = (element) ->
+    $(element).on 'click', (e) ->
+      e.preventDefault()
+      openModal(element) # Open modal
+    $($.immoral.settings.modalContainer).on 'click', 'a[rel="modal:close"]',  (e) ->
+      e.preventDefault()
+      closeModal(element) # Close modal
+    return true
 
   # Initialize modal shadow
   modalShadowInit = ->
-    # Get Options
-    options = $.immoral.settings
+    options = $.immoral.settings # Get options
 
-    modalShadow = options.modalShadow
-
-    if !modalShadow
+    if !$('.' + options.modalShadowClass).length
       $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>')
-      $.immoral(
-        {
-          'modalShadow': $('.' + options.modalShadowClass)
-        }
-      )
+    $.immoral(
+      {
+        'modalShadow': $('.' + options.modalShadowClass)
+      }
+    )
 
-  init = (element) ->
-    # Get Options
-    options = $.immoral.settings
+  # Initialize modal container
+  modalContainerInit = ->
+    options = $.immoral.settings # Get options
 
-    modalObj = $(element)
-    modalObjName = modalObj.attr('id')
+    if !$('.' + options.modalContainerClass).length
+      $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>')
+    $.immoral(
+      {
+        'modalContainer': $('#immoral-modal')
+      }
+    )
 
-    if modalObj.parent('.' + options.modalWrapperClass).attr('class') != options.modalWrapperClass
-      modalObj.wrap(options.modalWrapper)
-      $('#' + modalObjName + ' .' + options.modalContentClass).append(options.content)
-      # Add close Button
-      $(options.modalCloseButton).attr('id', modalObjName + '_close')
-      modalObj.prepend(options.modalCloseButton)
+  modalInit = (element) ->
+    options = $.immoral.settings # Get options
 
-    modalWhole = modalObj.parent('.' + options.modalWrapperClass)
+    modalContainer = $(options.modalContainer)
+    modalContent = $(modalContainer).find('.' + options.modalContentClass)
 
-    # Hide the whole thing.
-    modalWhole.hide().attr('id', modalObjName + '-wrapper')
+    link = $(element).attr('href')
+
+    # Get the type of link and grab the content
+    if link == '#'
+      content = options.content # custom content
+    else if /https*:\/\//.test(link)
+      content = '<iframe src="' + link + '" seamless></iframe>' # iframe
+    else if /#+/.test(link)
+      content = $(link).html() # html on page
+
+    $(modalContent).html(content) # Put content inside
+    $(modalContent).prepend(options.modalCloseButton) # Attach close button
+
+    applyStyles() # Apply styles
 
   # Private function for opening modal
   openModal = (element) ->
-    # Get Options
-    options = $.immoral.settings
+    options = $.immoral.settings # Get options
 
-    modalWhole = $(element).parent('.' + options.modalWrapperClass)
-    modalShadow = options.modalShadow
+    modalShadow = $(options.modalShadow)
+    modalContainer = $(options.modalContainer)
 
-    modalShadow.fadeIn()
-    modalWhole.fadeIn()
+    modalInit(element) # Initialize modal
+
+    $(modalShadow).fadeIn()
+    $(modalContainer).fadeIn()
 
   # Private function for closing modal
-  closeModal = (element) ->
-    # Get Options
-    options = $.immoral.settings
+  closeModal = ->
+    options = $.immoral.settings # Get options
 
-    if element
-      modalWhole = $(element).parent('.' + options.modalWrapperClass)
-      modalWhole.fadeOut()
-    else
-      $('.' + options.modalClass).parent().fadeOut()
+    modalShadow = $(options.modalShadow)
+    modalContainer = $(options.modalContainer)
 
-    modalShadow = options.modalShadow
-    modalShadow.fadeOut()
+    $(modalShadow).fadeOut()
+    $(modalContainer).fadeOut()
+
+    emptyModal() # time to clear the modal
+
+  # Empty the modal
+  emptyModal = ->
+    options = $.immoral.settings # Get options
+
+    $(options.modalContainer).find('.' + options.modalContentClass).empty()
 
   # Private function to apply default styles
-  applyStyles = (element) ->
-    # Get Options
-    options = $.immoral.settings
+  applyStyles = ->
+    options = $.immoral.settings # Get options
 
-    # Applying modal shadow styles
-    $('.' + options.modalShadowClass).css(options.modalShadowStyle)
-
-    # Applying modal wrapper styles
-    $('.' + options.modalWrapperClass).css(options.modalWrapperStyle)
-
-    # applying modal content styles
-    $('.' + options.modalContentClass).css(options.modalContentStyle)
-
-    # applying modal styles
-    $(element).css(options.modalStyle).show()
+    $(options.modalShadow).css(options.modalShadowStyle)
+    $(options.modalContainer).css(options.modalContainerStyle)
+    $(options.modalContainer).find('.modal-content').css(options.modalContentStyle)
+    $(options.modalContainer).find('.modal').css(options.modalStyle)
 
   # Method for opening a modal
   $.fn.open = ->
@@ -158,11 +164,9 @@ $ ->
 
   # Method for closing a modal
   $.fn.close = ->
-    closeModal(this)
+    closeModal()
 
-  # Static method.
+  # Static method for updating settings
   $.immoral = (options) ->
-    # Override default options with passed-in options.
-    $.immoral.settings = $.extend(true, {}, $.immoral.settings, options)
-    # Return something immoral.
-    return 'immoralized'
+    $.immoral.settings = $.extend(true, {}, $.immoral.settings, options) # Override default options with passed-in options.
+    return 'immoralized' # Return something immoral
