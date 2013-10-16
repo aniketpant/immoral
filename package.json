@@ -1,9 +1,5 @@
 {
-  "name": "jquery-plugin",
-  "version": "0.0.0-ignored",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
+  "name": "immoral",
   "scripts": {
     "test": "grunt qunit"
   },
@@ -14,6 +10,7 @@
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.4.0",
     "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-coffee": "~0.7.0",
     "grunt": "~0.4.1"
-  }
+  },
 }

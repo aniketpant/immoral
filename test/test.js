@@ -1,8 +1,13 @@
-(function($) {
-  /*
+(function() {
+  var $;
+
+  $ = jQuery;
+
+  $(function() {
+    /*
     ======== A Handy Little QUnit Reference ========
     http://api.qunitjs.com/
-
+    
     Test methods:
       module(name, {[setup][ ,teardown]})
       test(name, callback)
@@ -18,19 +23,17 @@
       strictEqual(actual, expected, [message])
       notStrictEqual(actual, expected, [message])
       throws(block, [expected], [message])
-  */
+    */
 
-  module('jQuery#immoral', {
-    // This will run before each test in this module.
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
+    module('jQuery#immoral', {
+      setup: function() {
+        return this.elems = $('#qunit-fixture').children();
+      }
+    });
+    return test('options', function() {
+      expect(1);
+      return strictEqual($.immoral(), 'immoralized', 'should be immoral');
+    });
   });
 
-  test('options', function() {
-    expect(2);
-    strictEqual($.immoral(), 'immoralized', 'should be immoral');
-    strictEqual($.immoral({modalStyle:{width: '50%',height: '50%',margin: '0 auto'}}), 'immoralized', 'should be thoroughly immoral');
-  });
-
-}(jQuery));
+}).call(this);

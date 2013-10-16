@@ -57,7 +57,53 @@ module.exports = function(grunt) {
         src: ['test/**/*.js']
       },
     },
+    coffee: {
+      compile: {
+        files: {
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
+        }
+      },
+      compileBare: {
+        options: {
+          bare: true
+        },
+        files: {
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
+        }
+      },
+      compileJoined: {
+        options: {
+          join: true
+        },
+        files: {
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile, identical output to join = false
+        }
+      },
+      compileWithMaps: {
+        options: {
+          sourceMap: true
+        },
+        files: {
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+        }
+      },
+      glob_to_multiple: {
+        expand: true,
+        flatten: true,
+        cwd: 'src/coffee/',
+        src: ['*.coffee'],
+        dest: 'src/',
+        ext: '.js'
+      }
+    },
     watch: {
+      coffee: {
+        files: ['src/coffee/**/*.coffee'],
+        tasks: ['coffee:compile']
+      },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
@@ -80,8 +126,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('default', ['coffee', 'jshint', 'qunit', 'clean', 'concat', 'uglify']);
 
 };
