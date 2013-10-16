@@ -60,8 +60,8 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
-          'src/immoral.js': 'coffee/immoral.coffee', // 1:1 compile
-          'test/test.js': 'coffee/test/test.coffee', // 1:1 compile
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
         }
       },
       compileBare: {
@@ -69,8 +69,8 @@ module.exports = function(grunt) {
           bare: true
         },
         files: {
-          'src/immoral.js': 'coffee/immoral.coffee', // 1:1 compile
-          'test/test.js': 'coffee/test/test.coffee', // 1:1 compile
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
         }
       },
       compileJoined: {
@@ -78,8 +78,8 @@ module.exports = function(grunt) {
           join: true
         },
         files: {
-          'src/immoral.js': 'coffee/immoral.coffee', // 1:1 compile
-          'test/test.js': 'coffee/test/test.coffee', // 1:1 compile, identical output to join = false
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile, identical output to join = false
         }
       },
       compileWithMaps: {
@@ -87,13 +87,13 @@ module.exports = function(grunt) {
           sourceMap: true
         },
         files: {
-          'src/immoral.js': 'coffee/immoral.coffee', // 1:1 compile
+          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
         }
       },
       glob_to_multiple: {
         expand: true,
         flatten: true,
-        cwd: 'coffee/',
+        cwd: 'src/coffee/',
         src: ['*.coffee'],
         dest: 'src/',
         ext: '.js'
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
     },
     watch: {
       coffee: {
-        files: ['coffee/**/*.coffee'],
+        files: ['src/coffee/**/*.coffee'],
         tasks: ['coffee:compile']
       },
       gruntfile: {
