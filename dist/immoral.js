@@ -1,184 +1,157 @@
-/*! Immoral - v0.1.0 - 2013-09-27
+/*! Immoral - v0.2.0 - 2013-10-16
 * https://github.com/aniketpant/immoral
 * Copyright (c) 2013 Aniket Pant; Licensed MIT */
-(function($) {
+(function() {
+  var $;
 
-  // Collection method.
-  $.fn.immoral = function(options) {
-    var globals = {
-      content: '',
-      modalClass: 'modal',
-      modalShadowClass: 'modal-shadow',
-      modalWrapper: '<div class="modal-wrapper" />',
-      modalWrapperClass: 'modal-wrapper',
-      modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
-      modalContentClass: 'modal-content',
-      modalShadow: false,
-      modalStyle: {
-        'width': '50%',
-        'height': '50%',
-        'margin': '0 auto',
-        'background': 'white',
-        'text-align': 'left',
-      },
-      modalShadowStyle: {
-        'position': 'fixed',
-        'z-index': '10000000',
-        'background': 'rgba(0,0,0,0.5)',
-        'width': '100%',
-        'height': '100%',
-        'left': '0px',
-        'top': '0px',
-      },
-      modalWrapperStyle: {
-        'width': '100%',
-        'margin': '0px',
-        'position': 'fixed',
-        'top': '0px',
-        'left': '0px',
-        'height': '100%',
-        'display': 'none',
-        'z-index': 10000001,
-        'background': 'transparent',
-        'text-align': 'center',
-      },
-      modalContentStyle: {
-        'width': '100%',
-        'height': '100%',
-      }
-    };
+  $ = jQuery;
 
-    $.immoral.settings = $.extend(true, {}, globals, options);
+  if (!$) {
+    return false;
+  }
 
-    return this.each(function() {
-      // Do something immoral to each selected element.
-      init(this);
-
-      // Initialize Modal Shadow
-      modalShadowInit();
-
-      // Apply styles
-      applyStyles(this);
-
-      $('body').on('click', 'a[rel="modal"]', function(e) {
-        e.preventDefault();
-        var element = $(this).attr('href');
-
-        // Open
-        openModal(element);
-      });
-      $('.' + $.immoral.settings.modalClass).on('click', 'a[rel="modal:close"]', function(e) {
-        e.preventDefault();
-        var element = $(this).attr('id');
-
-        // Close
-        closeModal(element);
-      });
-    });
-  };
-
-  // Initialize modal shadow
-  function modalShadowInit() {
-    // Get Options
-    var options = $.immoral.settings;
-
-    var modalShadow = options.modalShadow;
-
-    if(!modalShadow) {
-      $('body').append('<div class="' + options.modalShadowClass + '" style="display: none;"></div>');
-      $.immoral(
-        {
-          'modalShadow': $('.' + options.modalShadowClass)
+  $(function() {
+    var applyStyles, closeModal, emptyModal, eventHandler, modalContainerInit, modalInit, modalShadowInit, openModal;
+    $.fn.immoral = function(options) {
+      var globals;
+      globals = {
+        content: '',
+        modalClass: 'modal',
+        modalShadowClass: 'modal-shadow',
+        modalContainerClass: 'modal-container',
+        modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
+        modalContentClass: 'modal-content',
+        modalShadow: false,
+        modalContainer: false,
+        modalStyle: {
+          'width': '50%',
+          'height': '50%',
+          'margin': '0 auto',
+          'background': 'white',
+          'text-align': 'left'
+        },
+        modalShadowStyle: {
+          'position': 'fixed',
+          'z-index': '10000000',
+          'background': 'rgba(0,0,0,0.5)',
+          'width': '100%',
+          'height': '100%',
+          'left': '0px',
+          'top': '0px'
+        },
+        modalContainerStyle: {
+          'width': '100%',
+          'margin': '0px',
+          'position': 'fixed',
+          'top': '0px',
+          'left': '0px',
+          'height': '100%',
+          'display': 'none',
+          'z-index': '10000001',
+          'background': 'transparent',
+          'text-align': 'center'
+        },
+        modalContentStyle: {
+          'width': '100%',
+          'height': '100%'
         }
-      );
-    }
-  }
+      };
+      $.immoral.settings = $.extend(true, {}, globals, options);
+      return this.each(function() {
+        modalShadowInit();
+        modalContainerInit();
+        return eventHandler(this);
+      });
+    };
+    eventHandler = function(element) {
+      $(element).on('click', function(e) {
+        e.preventDefault();
+        return openModal(element);
+      });
+      $($.immoral.settings.modalContainer).on('click', 'a[rel="modal:close"]', function(e) {
+        e.preventDefault();
+        return closeModal(element);
+      });
+      return true;
+    };
+    modalShadowInit = function() {
+      var options;
+      options = $.immoral.settings;
+      if (!$('.' + options.modalShadowClass).length) {
+        $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>');
+      }
+      return $.immoral({
+        'modalShadow': $('.' + options.modalShadowClass)
+      });
+    };
+    modalContainerInit = function() {
+      var options;
+      options = $.immoral.settings;
+      if (!$('.' + options.modalContainerClass).length) {
+        $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>');
+      }
+      return $.immoral({
+        'modalContainer': $('#immoral-modal')
+      });
+    };
+    modalInit = function(element) {
+      var content, link, modalContainer, modalContent, options;
+      options = $.immoral.settings;
+      modalContainer = $(options.modalContainer);
+      modalContent = $(modalContainer).find('.' + options.modalContentClass);
+      link = $(element).attr('href');
+      if (link === '#') {
+        content = options.content;
+      } else if (/https*:\/\//.test(link)) {
+        content = '<iframe src="' + link + '" seamless></iframe>';
+      } else if (/#+/.test(link)) {
+        content = $(link).html();
+      }
+      $(modalContent).html(content);
+      $(modalContent).prepend(options.modalCloseButton);
+      return applyStyles();
+    };
+    openModal = function(element) {
+      var modalContainer, modalShadow, options;
+      options = $.immoral.settings;
+      modalShadow = $(options.modalShadow);
+      modalContainer = $(options.modalContainer);
+      modalInit(element);
+      $(modalShadow).fadeIn();
+      return $(modalContainer).fadeIn();
+    };
+    closeModal = function() {
+      var modalContainer, modalShadow, options;
+      options = $.immoral.settings;
+      modalShadow = $(options.modalShadow);
+      modalContainer = $(options.modalContainer);
+      $(modalShadow).fadeOut();
+      $(modalContainer).fadeOut();
+      return emptyModal();
+    };
+    emptyModal = function() {
+      var options;
+      options = $.immoral.settings;
+      return $(options.modalContainer).find('.' + options.modalContentClass).empty();
+    };
+    applyStyles = function() {
+      var options;
+      options = $.immoral.settings;
+      $(options.modalShadow).css(options.modalShadowStyle);
+      $(options.modalContainer).css(options.modalContainerStyle);
+      $(options.modalContainer).find('.modal-content').css(options.modalContentStyle);
+      return $(options.modalContainer).find('.modal').css(options.modalStyle);
+    };
+    $.fn.open = function() {
+      return openModal(this);
+    };
+    $.fn.close = function() {
+      return closeModal();
+    };
+    return $.immoral = function(options) {
+      $.immoral.settings = $.extend(true, {}, $.immoral.settings, options);
+      return 'immoralized';
+    };
+  });
 
-  function init(element) {
-    // Get Options
-    var options = $.immoral.settings;
-
-    var modalObj = $(element);
-    var modalObjName = modalObj.attr('id');
-
-    if (modalObj.parent('.' + options.modalWrapperClass).attr('class') !== options.modalWrapperClass) {
-      modalObj.wrap(options.modalWrapper);
-
-      $('#' + modalObjName + ' .' + options.modalContentClass).append(options.content);
-
-      // Add close Button
-      $(options.modalCloseButton).attr('id', modalObjName + '_close');
-      modalObj.prepend(options.modalCloseButton);
-    }
-
-    var modalWhole = modalObj.parent('.' + options.modalWrapperClass);
-
-    // Hide the whole thing.
-    modalWhole.hide().attr('id', modalObjName + '-wrapper');
-  }
-
-  // Private function for opening modal
-  function openModal(element) {
-    // Get Options
-    var options = $.immoral.settings;
-
-    var modalWhole = $(element).parent('.' + options.modalWrapperClass);
-    var modalShadow = options.modalShadow;
-
-    modalShadow.fadeIn();
-    modalWhole.fadeIn();
-  }
-
-  // Private function for closing modal
-  function closeModal(element) {
-    // Get Options
-    var options = $.immoral.settings;
-
-    if (element) {
-      var modalWhole = $(element).parent('.' + options.modalWrapperClass);
-      modalWhole.fadeOut();
-    } else {
-      $('.' + options.modalClass).parent().fadeOut();
-    }
-
-    var modalShadow = options.modalShadow;
-    modalShadow.fadeOut();
-  }
-
-  // Private function to apply default styles
-  function applyStyles(element) {
-    // Get Options
-    var options = $.immoral.settings;
-
-    // Applying modal shadow styles
-    $('.' + options.modalShadowClass).css(options.modalShadowStyle);
-
-    // Applying modal wrapper styles
-    $('.' + options.modalWrapperClass).css(options.modalWrapperStyle);
-
-    // applying modal content styles
-    $('.' + options.modalContentClass).css(options.modalContentStyle);
-
-    // applying modal styles
-    $(element).css(options.modalStyle).show();
-  }
-
-  // Method for opening a modal
-  $.fn.open = function() {
-    openModal(this);
-  };
-
-  // Method for closing a modal
-  $.fn.close = function() {
-    closeModal(this);
-  };
-
-  // Static method.
-  $.immoral = function(options) {
-    // Override default options with passed-in options.
-    $.immoral.settings = $.extend(true, {}, $.immoral.settings, options);
-    // Return something immoral.
-    return 'immoralized';
-  };
-
-}(jQuery));
+}).call(this);

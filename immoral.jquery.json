@@ -1,8 +1,8 @@
 {
   "name": "immoral",
   "title": "Immoral",
-  "description": "A spunky clean flexible no-forced-design modal library",
-  "version": "0.1.0",
+  "description": "A spunky clean flexible no-forced-design opinionated modal library",
+  "version": "0.2.0",
   "homepage": "https://github.com/aniketpant/immoral",
   "author": {
     "name": "Aniket Pant",

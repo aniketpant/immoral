@@ -1,6 +1,6 @@
 # Immoral
 
-A spunky clean flexible no-forced-design modal library.
+A spunky clean flexible no-forced-design opinionated modal library.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -15,44 +15,35 @@ In your web page:
 <script src="dist/immoral.min.js"></script>
 <script>
 $(document).ready(function() {
-  $(document).ready(function() {
-    var options = {
-      content: '<iframe src="//localhost/" seamless></iframe>',
-      modalStyle: {
-        'width': '980px',
-        'height': '90%',
-        'margin': '0 auto'
-      }
-    };
-    $('#modal_demo_page').immoral(options);
+   $('#modal-1').immoral({
+    modalStyle: {
+      'width': '980px',
+      'height': '90%',
+      'margin': '0 auto',
+      'background': 'white',
+    }
   });
 });
 </script>
-<p>This will open a <a href="#modal_demo_page" rel="modal">modal</a>.</p>
-<div id="modal_demo_page" class="modal" style="display: none;">
-  <div class="modal-content">
-  </div>
+<p>This will open a <a href="http://somesite.com" rel="modal">modal</a>.</p>
 </div>
 ```
 
 ## Usage
-If you see the example given before, you need to create a `<a>` where the `href` points to the id of your modal.
 
+Immoral works in three ways on the basis of the the data provided in the `href`:
+
+1. Provide link to some website and it will be loaded as an iframe
+2. If it points to a `<div>`, then it will load the HTML content of the `<div>` inside the modal
+3. In case, it points to `#`, `content` will be expected as a supplied option
+
+Immoral uses a single container, where the content is changed when a click event takes place.
+
+## Note
 Immoral forces only two things upon you.
 
 1. The `<a>` needs to have a `rel="modal"` attribute attached to it for the plugin to identify the click event.
-2. The modal must comply with the classes you provide in the plugin options.
-
-General structure of a modal should be this.
-
-```html
-<div id="your_modal_id" class="modal">
-  <div class="modal-content">
-  </div>
-</div>
-```
-
-`.modal-content` is important because immoral wraps the entire `.modal` with a wrapper.
+2. The modal must comply with the classes you provide as options.
 
 ## Documentation
 immoral provides the following methods:
@@ -69,17 +60,17 @@ The following options are available at the moment.
   content: '',
   modalClass: 'modal',
   modalShadowClass: 'modal-shadow',
-  modalWrapper: '<div class="modal-wrapper" />',
-  modalWrapperClass: 'modal-wrapper',
+  modalContainerClass: 'modal-container',
   modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
   modalContentClass: 'modal-content',
   modalShadow: false,
+  modalContainer: false,
   modalStyle: {
     'width': '50%',
     'height': '50%',
     'margin': '0 auto',
     'background': 'white',
-    'text-align': 'left',
+    'text-align': 'left'
   },
   modalShadowStyle: {
     'position': 'fixed',
@@ -88,9 +79,9 @@ The following options are available at the moment.
     'width': '100%',
     'height': '100%',
     'left': '0px',
-    'top': '0px',
+    'top': '0px'
   },
-  modalWrapperStyle: {
+  modalContainerStyle: {
     'width': '100%',
     'margin': '0px',
     'position': 'fixed',
@@ -98,13 +89,13 @@ The following options are available at the moment.
     'left': '0px',
     'height': '100%',
     'display': 'none',
-    'z-index': 10000001,
+    'z-index': '10000001',
     'background': 'transparent',
-    'text-align': 'center',
+    'text-align': 'center'
   },
   modalContentStyle: {
     'width': '100%',
-    'height': '100%',
+    'height': '100%'
   }
 }
 ```
@@ -117,20 +108,46 @@ Use `$(selector).immoral().open()` to open a modal.
 
 Use `$(selector).immoral().close()` to open a modal.
 
-## Examples
+## Example
 
-To set your own options for immoral, you can use the following code.
+Below is an example of the three ways of using immoral.
 
-```js
-var options = {
-  content: '<iframe src="//localhost/" seamless></iframe>',
-  modalStyle: {
-    'width': '980px',
-    'height': '90%',
-    'margin': '0 auto'
-  }
-};
-$(selector).immoral(options);
+```html
+<p>This will open a <a id="modal-1" href="http://localhost/" rel="modal">modal</a>.</p>
+<p>This will open another <a id="modal-2" href="#test-modal" rel="modal">modal</a>.</p>
+<p>And this will open will be yet another <a id="modal-3" href="#" rel="modal">modal</a>.</p>
+<div id="test-modal" style="display: none;">
+  <p>Some testing data for a modal.</p>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#modal-1').immoral({
+      modalStyle: {
+        'width': '980px',
+        'height': '90%',
+        'margin': '0 auto',
+        'background': 'white',
+      }
+    });
+    $('#modal-2').immoral({
+      modalStyle: {
+        'width': '980px',
+        'height': '90%',
+        'margin': '0 auto',
+        'background': 'white',
+      }
+    });
+    $('#modal-3').immoral({
+      content: '<p>Some custom html.</p>',
+      modalStyle: {
+        'width': '980px',
+        'height': '90%',
+        'margin': '0 auto',
+        'background': 'white',
+      }
+    });
+  });
+</script>
 ```
 
 Manually open a modal.
@@ -146,5 +163,6 @@ $(selector).immoral().close();
 ```
 
 ## Release History
+- v0.2.0 - Oct 16, 2013
 - v0.1.1 - Sep 27, 2013
 - v0.1.0 - Sep 23, 2013
