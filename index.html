@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Immoral by aniketpant</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/aniketpant/immoral">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/aniketpant/immoral/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/aniketpant/immoral/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Immoral</h1>
+          <p>A spunky clean flexible no-forced-design modal library.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/aniketpant">aniketpant</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="immoral" class="anchor" href="#immoral"><span class="octicon octicon-link"></span></a>Immoral</h1>
+
+<p>A spunky clean flexible no-forced-design opinionated modal library.</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>Download the <a href="https://raw.github.com/aniketpant/immoral/master/dist/immoral.min.js">production version</a> or the <a href="https://raw.github.com/aniketpant/immoral/master/dist/immoral.js">development version</a>.</p>
+
+<p>In your web page:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/immoral.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">$</span><span class="p">(</span><span class="s1">'#modal-1'</span><span class="p">).</span><span class="nx">immoral</span><span class="p">({</span>
+    <span class="nx">modalStyle</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'980px'</span><span class="p">,</span>
+      <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'90%'</span><span class="p">,</span>
+      <span class="s1">'margin'</span><span class="o">:</span> <span class="s1">'0 auto'</span><span class="p">,</span>
+      <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'white'</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;p&gt;</span>This will open a <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://somesite.com"</span> <span class="na">rel=</span><span class="s">"modal"</span><span class="nt">&gt;</span>modal<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Immoral works in three ways on the basis of the the data provided in the <code>href</code>:</p>
+
+<ol>
+<li>Provide link to some website and it will be loaded as an iframe</li>
+<li>If it points to a <code>&lt;div&gt;</code>, then it will load the HTML content of the <code>&lt;div&gt;</code> inside the modal</li>
+<li>In case, it points to <code>#</code>, <code>content</code> will be expected as a supplied option</li>
+</ol><p>Immoral uses a single container, where the content is changed when a click event takes place.</p>
+
+<h2>
+<a name="note" class="anchor" href="#note"><span class="octicon octicon-link"></span></a>Note</h2>
+
+<p>Immoral forces only two things upon you.</p>
+
+<ol>
+<li>The <code>&lt;a&gt;</code> needs to have a <code>rel="modal"</code> attribute attached to it for the plugin to identify the click event.</li>
+<li>The modal must comply with the classes you provide as options.</li>
+</ol><h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>immoral provides the following methods:</p>
+
+<ul>
+<li><code>open</code></li>
+<li><code>close</code></li>
+</ul><h3>
+<a name="setting-options" class="anchor" href="#setting-options"><span class="octicon octicon-link"></span></a>Setting Options</h3>
+
+<p>Options can be set using the <code>$(selector).immoral(options)</code> method.</p>
+
+<p>The following options are available at the moment.</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+  <span class="nx">content</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="nx">modalClass</span><span class="o">:</span> <span class="s1">'modal'</span><span class="p">,</span>
+  <span class="nx">modalShadowClass</span><span class="o">:</span> <span class="s1">'modal-shadow'</span><span class="p">,</span>
+  <span class="nx">modalContainerClass</span><span class="o">:</span> <span class="s1">'modal-container'</span><span class="p">,</span>
+  <span class="nx">modalCloseButton</span><span class="o">:</span> <span class="s1">'&lt;a href="#" rel="modal:close"&gt;Close&lt;/a&gt;'</span><span class="p">,</span>
+  <span class="nx">modalContentClass</span><span class="o">:</span> <span class="s1">'modal-content'</span><span class="p">,</span>
+  <span class="nx">modalShadow</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">modalContainer</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">modalStyle</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'50%'</span><span class="p">,</span>
+    <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'50%'</span><span class="p">,</span>
+    <span class="s1">'margin'</span><span class="o">:</span> <span class="s1">'0 auto'</span><span class="p">,</span>
+    <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'white'</span><span class="p">,</span>
+    <span class="s1">'text-align'</span><span class="o">:</span> <span class="s1">'left'</span>
+  <span class="p">},</span>
+  <span class="nx">modalShadowStyle</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">'position'</span><span class="o">:</span> <span class="s1">'fixed'</span><span class="p">,</span>
+    <span class="s1">'z-index'</span><span class="o">:</span> <span class="s1">'10000000'</span><span class="p">,</span>
+    <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'rgba(0,0,0,0.5)'</span><span class="p">,</span>
+    <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'100%'</span><span class="p">,</span>
+    <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'100%'</span><span class="p">,</span>
+    <span class="s1">'left'</span><span class="o">:</span> <span class="s1">'0px'</span><span class="p">,</span>
+    <span class="s1">'top'</span><span class="o">:</span> <span class="s1">'0px'</span>
+  <span class="p">},</span>
+  <span class="nx">modalContainerStyle</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'100%'</span><span class="p">,</span>
+    <span class="s1">'margin'</span><span class="o">:</span> <span class="s1">'0px'</span><span class="p">,</span>
+    <span class="s1">'position'</span><span class="o">:</span> <span class="s1">'fixed'</span><span class="p">,</span>
+    <span class="s1">'top'</span><span class="o">:</span> <span class="s1">'0px'</span><span class="p">,</span>
+    <span class="s1">'left'</span><span class="o">:</span> <span class="s1">'0px'</span><span class="p">,</span>
+    <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'100%'</span><span class="p">,</span>
+    <span class="s1">'display'</span><span class="o">:</span> <span class="s1">'none'</span><span class="p">,</span>
+    <span class="s1">'z-index'</span><span class="o">:</span> <span class="s1">'10000001'</span><span class="p">,</span>
+    <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'transparent'</span><span class="p">,</span>
+    <span class="s1">'text-align'</span><span class="o">:</span> <span class="s1">'center'</span>
+  <span class="p">},</span>
+  <span class="nx">modalContentStyle</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'100%'</span><span class="p">,</span>
+    <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'100%'</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="opening-modal" class="anchor" href="#opening-modal"><span class="octicon octicon-link"></span></a>Opening modal</h3>
+
+<p>Use <code>$(selector).immoral().open()</code> to open a modal.</p>
+
+<h3>
+<a name="closing-modal" class="anchor" href="#closing-modal"><span class="octicon octicon-link"></span></a>Closing modal</h3>
+
+<p>Use <code>$(selector).immoral().close()</code> to open a modal.</p>
+
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>Below is an example of the three ways of using immoral.</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;p&gt;</span>This will open a <span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"modal-1"</span> <span class="na">href=</span><span class="s">"http://localhost/"</span> <span class="na">rel=</span><span class="s">"modal"</span><span class="nt">&gt;</span>modal<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>This will open another <span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"modal-2"</span> <span class="na">href=</span><span class="s">"#test-modal"</span> <span class="na">rel=</span><span class="s">"modal"</span><span class="nt">&gt;</span>modal<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>And this will open will be yet another <span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"modal-3"</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">rel=</span><span class="s">"modal"</span><span class="nt">&gt;</span>modal<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"test-modal"</span> <span class="na">style=</span><span class="s">"display: none;"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;p&gt;</span>Some testing data for a modal.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#modal-1'</span><span class="p">).</span><span class="nx">immoral</span><span class="p">({</span>
+      <span class="nx">modalStyle</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'980px'</span><span class="p">,</span>
+        <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'90%'</span><span class="p">,</span>
+        <span class="s1">'margin'</span><span class="o">:</span> <span class="s1">'0 auto'</span><span class="p">,</span>
+        <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'white'</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#modal-2'</span><span class="p">).</span><span class="nx">immoral</span><span class="p">({</span>
+      <span class="nx">modalStyle</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'980px'</span><span class="p">,</span>
+        <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'90%'</span><span class="p">,</span>
+        <span class="s1">'margin'</span><span class="o">:</span> <span class="s1">'0 auto'</span><span class="p">,</span>
+        <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'white'</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#modal-3'</span><span class="p">).</span><span class="nx">immoral</span><span class="p">({</span>
+      <span class="nx">content</span><span class="o">:</span> <span class="s1">'&lt;p&gt;Some custom html.&lt;/p&gt;'</span><span class="p">,</span>
+      <span class="nx">modalStyle</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'width'</span><span class="o">:</span> <span class="s1">'980px'</span><span class="p">,</span>
+        <span class="s1">'height'</span><span class="o">:</span> <span class="s1">'90%'</span><span class="p">,</span>
+        <span class="s1">'margin'</span><span class="o">:</span> <span class="s1">'0 auto'</span><span class="p">,</span>
+        <span class="s1">'background'</span><span class="o">:</span> <span class="s1">'white'</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>Manually open a modal.</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">immoral</span><span class="p">().</span><span class="nx">open</span><span class="p">();</span>
+</pre></div>
+
+<p>Manually close a modal.</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">immoral</span><span class="p">().</span><span class="nx">close</span><span class="p">();</span>
+</pre></div>
+
+<h2>
+<a name="release-history" class="anchor" href="#release-history"><span class="octicon octicon-link"></span></a>Release History</h2>
+
+<ul>
+<li>v0.2.0 - Oct 16, 2013</li>
+<li>v0.1.1 - Sep 27, 2013</li>
+<li>v0.1.0 - Sep 23, 2013</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
