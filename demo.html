@@ -43,6 +43,15 @@
           'background': 'white',
         }
       });
+      $('#modal-4').immoral({
+        content: '<p>The effin\' override.</p>',
+        modalStyle: {
+          'width': '980px',
+          'height': '90%',
+          'margin': '0 auto',
+          'background': 'white',
+        }
+      });
     });
   </script>
 </head>
@@ -54,6 +63,7 @@
     <p>This will open a <a id="modal-1" href="http://localhost/" rel="modal">modal</a>.</p>
     <p>This will open another <a id="modal-2" href="#test-modal" rel="modal">modal</a>.</p>
     <p>And this will open will be yet another <a id="modal-3" href="#" rel="modal">modal</a>.</p>
+    <p>And this is damned override <a id="modal-4" href="http://localhost/" rel="modal">modal</a>.</p>
   </section>
   <footer role="contentinfo">
     <p>A spunky clean flexible no-forced-design modal library.</p>

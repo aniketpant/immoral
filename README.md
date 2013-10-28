@@ -45,6 +45,8 @@ Immoral forces only two things upon you.
 1. The `<a>` needs to have a `rel="modal"` attribute attached to it for the plugin to identify the click event.
 2. The modal must comply with the classes you provide as options.
 
+**Word of caution:** If the `content` option is set, then it will override the decision making which is based on `href`.
+
 ## Documentation
 immoral provides the following methods:
 - `open`
