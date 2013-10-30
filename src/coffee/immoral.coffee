@@ -106,7 +106,7 @@ $ ->
 
     link = $(element).attr('href')
 
-    if options.content is undefined
+    if options.content is undefined and options.content is ''
       # Get the type of link and grab the content
       if link == '#'
         content = options.content # custom content

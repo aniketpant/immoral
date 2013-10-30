@@ -1,4 +1,4 @@
-/*! Immoral - v0.2.0 - 2013-10-28
+/*! Immoral - v0.2.0 - 2013-10-30
 * https://github.com/aniketpant/immoral
 * Copyright (c) 2013 Aniket Pant; Licensed MIT */
 (function() {
@@ -100,7 +100,7 @@
       modalContainer = $(options.modalContainer);
       modalContent = $(modalContainer).find('.' + options.modalContentClass);
       link = $(element).attr('href');
-      if (options.content === void 0) {
+      if (options.content === void 0 && options.content === '') {
         if (link === '#') {
           content = options.content;
         } else if (/https*:\/\//.test(link)) {

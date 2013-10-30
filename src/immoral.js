@@ -106,7 +106,7 @@
       modalContainer = $(options.modalContainer);
       modalContent = $(modalContainer).find('.' + options.modalContentClass);
       link = $(element).attr('href');
-      if (options.content === void 0) {
+      if (options.content === void 0 && options.content === '') {
         if (link === '#') {
           content = options.content;
         } else if (/https*:\/\//.test(link)) {
