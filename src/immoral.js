@@ -106,16 +106,14 @@
       modalContainer = $(options.modalContainer);
       modalContent = $(modalContainer).find('.' + options.modalContentClass);
       link = $(element).attr('href');
-      if (options.content === void 0 && options.content === '') {
-        if (link === '#') {
-          content = options.content;
-        } else if (/https*:\/\//.test(link)) {
+      if (options.content) {
+        content = options.content;
+      } else {
+        if (/https*:\/\//.test(link)) {
           content = '<iframe src="' + link + '" seamless></iframe>';
         } else if (/#+/.test(link)) {
           content = $(link).html();
         }
-      } else {
-        content = options.content;
       }
       $(modalContent).html(content);
       $(modalContent).prepend(options.modalCloseButton);

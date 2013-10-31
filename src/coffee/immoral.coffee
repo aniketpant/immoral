@@ -106,16 +106,13 @@ $ ->
 
     link = $(element).attr('href')
 
-    if options.content is undefined and options.content is ''
-      # Get the type of link and grab the content
-      if link == '#'
-        content = options.content # custom content
-      else if /https*:\/\//.test(link)
+    if options.content
+      content = options.content
+    else
+      if /https*:\/\//.test(link)
         content = '<iframe src="' + link + '" seamless></iframe>' # iframe
       else if /#+/.test(link)
         content = $(link).html() # html on page
-    else
-      content = options.content
 
     $(modalContent).html(content) # Put content inside
     $(modalContent).prepend(options.modalCloseButton) # Attach close button
