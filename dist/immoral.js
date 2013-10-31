@@ -72,6 +72,11 @@
         e.preventDefault();
         return closeModal(element);
       });
+      $(document).keydown(element, function(e) {
+        if (e.keyCode === 27) {
+          return closeModal(element);
+        }
+      });
       return true;
     };
     modalShadowInit = function(element) {

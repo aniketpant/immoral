@@ -69,9 +69,12 @@ $ ->
     $(element).on 'click', (e) ->
       e.preventDefault()
       openModal(element) # Open modal
-    $(element.settings.modalContainer).on 'click', 'a[rel="modal:close"]',  (e) ->
+    $(element.settings.modalContainer).on 'click', 'a[rel="modal:close"]', (e) ->
       e.preventDefault()
       closeModal(element) # Close modal
+    $(document).keydown element, (e) ->
+        if e.keyCode is 27
+          closeModal(element);
     return true
 
   # Initialize modal shadow
@@ -80,7 +83,7 @@ $ ->
 
     if !$('.' + options.modalShadowClass).length
       $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>')
-    $.immoral(element, 
+    $.immoral(element,
       {
         'modalShadow': $('.' + options.modalShadowClass)
       }
@@ -92,7 +95,7 @@ $ ->
 
     if !$('.' + options.modalContainerClass).length
       $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>')
-    $.immoral(element, 
+    $.immoral(element,
       {
         'modalContainer': $('#immoral-modal')
       }
