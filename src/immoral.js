@@ -62,10 +62,10 @@
           'height': '100%'
         }
       };
-      $.immoral.settings = $.extend(true, {}, globals, options);
       return this.each(function() {
-        modalShadowInit();
-        modalContainerInit();
+        this.settings = $.extend(true, {}, globals, options);
+        modalShadowInit(this);
+        modalContainerInit(this);
         return eventHandler(this);
       });
     };
@@ -74,35 +74,35 @@
         e.preventDefault();
         return openModal(element);
       });
-      $($.immoral.settings.modalContainer).on('click', 'a[rel="modal:close"]', function(e) {
+      $(element.settings.modalContainer).on('click', 'a[rel="modal:close"]', function(e) {
         e.preventDefault();
         return closeModal(element);
       });
       return true;
     };
-    modalShadowInit = function() {
+    modalShadowInit = function(element) {
       var options;
-      options = $.immoral.settings;
+      options = element.settings;
       if (!$('.' + options.modalShadowClass).length) {
         $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>');
       }
-      return $.immoral({
+      return $.immoral(element, {
         'modalShadow': $('.' + options.modalShadowClass)
       });
     };
-    modalContainerInit = function() {
+    modalContainerInit = function(element) {
       var options;
-      options = $.immoral.settings;
+      options = element.settings;
       if (!$('.' + options.modalContainerClass).length) {
         $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>');
       }
-      return $.immoral({
+      return $.immoral(element, {
         'modalContainer': $('#immoral-modal')
       });
     };
     modalInit = function(element) {
       var content, link, modalContainer, modalContent, options;
-      options = $.immoral.settings;
+      options = element.settings;
       modalContainer = $(options.modalContainer);
       modalContent = $(modalContainer).find('.' + options.modalContentClass);
       link = $(element).attr('href');
@@ -119,34 +119,34 @@
       }
       $(modalContent).html(content);
       $(modalContent).prepend(options.modalCloseButton);
-      return applyStyles();
+      return applyStyles(element);
     };
     openModal = function(element) {
       var modalContainer, modalShadow, options;
-      options = $.immoral.settings;
+      options = element.settings;
       modalShadow = $(options.modalShadow);
       modalContainer = $(options.modalContainer);
       modalInit(element);
       $(modalShadow).fadeIn();
       return $(modalContainer).fadeIn();
     };
-    closeModal = function() {
+    closeModal = function(element) {
       var modalContainer, modalShadow, options;
-      options = $.immoral.settings;
+      options = element.settings;
       modalShadow = $(options.modalShadow);
       modalContainer = $(options.modalContainer);
       $(modalShadow).fadeOut();
       $(modalContainer).fadeOut();
-      return emptyModal();
+      return emptyModal(element);
     };
-    emptyModal = function() {
+    emptyModal = function(element) {
       var options;
-      options = $.immoral.settings;
+      options = element.settings;
       return $(options.modalContainer).find('.' + options.modalContentClass).empty();
     };
-    applyStyles = function() {
+    applyStyles = function(element) {
       var options;
-      options = $.immoral.settings;
+      options = element.settings;
       $(options.modalShadow).css(options.modalShadowStyle);
       $(options.modalContainer).css(options.modalContainerStyle);
       $(options.modalContainer).find('.modal-content').css(options.modalContentStyle);
@@ -156,10 +156,10 @@
       return openModal(this);
     };
     $.fn.close = function() {
-      return closeModal();
+      return closeModal(this);
     };
-    return $.immoral = function(options) {
-      $.immoral.settings = $.extend(true, {}, $.immoral.settings, options);
+    return $.immoral = function(element, options) {
+      element.settings = $.extend(true, {}, element.settings, options);
       return 'immoralized';
     };
   });

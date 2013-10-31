@@ -57,11 +57,11 @@ $ ->
       }
     }
 
-    $.immoral.settings = $.extend true, {}, globals, options
-
     return this.each ->
-      modalShadowInit() #Initialize modal shadow
-      modalContainerInit() # Initialize modal container
+      this.settings = $.extend true, {}, globals, options # Set each element
+
+      modalShadowInit(this) # Initialize modal shadow
+      modalContainerInit(this) # Initialize modal container
       eventHandler(this) # Handle the events
 
   # Handles the click events
@@ -69,37 +69,37 @@ $ ->
     $(element).on 'click', (e) ->
       e.preventDefault()
       openModal(element) # Open modal
-    $($.immoral.settings.modalContainer).on 'click', 'a[rel="modal:close"]',  (e) ->
+    $(element.settings.modalContainer).on 'click', 'a[rel="modal:close"]',  (e) ->
       e.preventDefault()
       closeModal(element) # Close modal
     return true
 
   # Initialize modal shadow
-  modalShadowInit = ->
-    options = $.immoral.settings # Get options
+  modalShadowInit = (element) ->
+    options = element.settings # Get options
 
     if !$('.' + options.modalShadowClass).length
       $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>')
-    $.immoral(
+    $.immoral(element, 
       {
         'modalShadow': $('.' + options.modalShadowClass)
       }
     )
 
   # Initialize modal container
-  modalContainerInit = ->
-    options = $.immoral.settings # Get options
+  modalContainerInit = (element) ->
+    options = element.settings # Get options
 
     if !$('.' + options.modalContainerClass).length
       $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>')
-    $.immoral(
+    $.immoral(element, 
       {
         'modalContainer': $('#immoral-modal')
       }
     )
 
   modalInit = (element) ->
-    options = $.immoral.settings # Get options
+    options = element.settings # Get options
 
     modalContainer = $(options.modalContainer)
     modalContent = $(modalContainer).find('.' + options.modalContentClass)
@@ -120,11 +120,11 @@ $ ->
     $(modalContent).html(content) # Put content inside
     $(modalContent).prepend(options.modalCloseButton) # Attach close button
 
-    applyStyles() # Apply styles
+    applyStyles(element) # Apply styles
 
   # Private function for opening modal
   openModal = (element) ->
-    options = $.immoral.settings # Get options
+    options = element.settings # Get options
 
     modalShadow = $(options.modalShadow)
     modalContainer = $(options.modalContainer)
@@ -135,8 +135,8 @@ $ ->
     $(modalContainer).fadeIn()
 
   # Private function for closing modal
-  closeModal = ->
-    options = $.immoral.settings # Get options
+  closeModal = (element) ->
+    options = element.settings # Get options
 
     modalShadow = $(options.modalShadow)
     modalContainer = $(options.modalContainer)
@@ -144,17 +144,17 @@ $ ->
     $(modalShadow).fadeOut()
     $(modalContainer).fadeOut()
 
-    emptyModal() # time to clear the modal
+    emptyModal(element) # time to clear the modal
 
   # Empty the modal
-  emptyModal = ->
-    options = $.immoral.settings # Get options
+  emptyModal = (element) ->
+    options = element.settings # Get options
 
     $(options.modalContainer).find('.' + options.modalContentClass).empty()
 
   # Private function to apply default styles
-  applyStyles = ->
-    options = $.immoral.settings # Get options
+  applyStyles = (element) ->
+    options = element.settings # Get options
 
     $(options.modalShadow).css(options.modalShadowStyle)
     $(options.modalContainer).css(options.modalContainerStyle)
@@ -167,9 +167,9 @@ $ ->
 
   # Method for closing a modal
   $.fn.close = ->
-    closeModal()
+    closeModal(this)
 
   # Static method for updating settings
-  $.immoral = (options) ->
-    $.immoral.settings = $.extend(true, {}, $.immoral.settings, options) # Override default options with passed-in options.
+  $.immoral = (element, options) ->
+    element.settings = $.extend(true, {}, element.settings, options) # Override default options with passed-in options.
     return 'immoralized' # Return something immoral
