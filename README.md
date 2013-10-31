@@ -35,7 +35,7 @@ Immoral works in three ways on the basis of the the data provided in the `href`:
 
 1. Provide link to some website and it will be loaded as an iframe
 2. If it points to a `<div>`, then it will load the HTML content of the `<div>` inside the modal
-3. In case, it points to `#`, `content` will be expected as a supplied option
+3. In case, the `content` option is set, it will override other content settings i.e it won't use the link given in `href` or the `id` it is pointing to
 
 Immoral uses a single container, where the content is changed when a click event takes place.
 
@@ -165,6 +165,7 @@ $(selector).immoral().close();
 ```
 
 ## Release History
+- v0.2.1 - Oct 31, 2013
 - v0.2.0 - Oct 16, 2013
 - v0.1.1 - Sep 27, 2013
 - v0.1.0 - Sep 23, 2013

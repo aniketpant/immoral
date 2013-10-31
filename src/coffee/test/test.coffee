@@ -29,4 +29,4 @@ $ ->
 
   test 'options', ->
     expect 1
-    strictEqual $.immoral(), 'immoralized', 'should be immoral'
+    strictEqual $.immoral($('#modal-1')), 'immoralized', 'should be immoral'

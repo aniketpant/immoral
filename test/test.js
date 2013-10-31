@@ -32,7 +32,7 @@
     });
     return test('options', function() {
       expect(1);
-      return strictEqual($.immoral(), 'immoralized', 'should be immoral');
+      return strictEqual($.immoral($('#modal-1')), 'immoralized', 'should be immoral');
     });
   });
 
