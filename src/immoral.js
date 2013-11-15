@@ -70,7 +70,7 @@
         e.preventDefault();
         return openModal(element);
       });
-      $(element.settings.modalContainer).bind('click', 'a[rel="modal:close"]', function(e) {
+      $(element.settings.modalContainer).delegate('a[rel="modal:close"]', 'click', function(e) {
         e.preventDefault();
         return closeModal(element);
       });
