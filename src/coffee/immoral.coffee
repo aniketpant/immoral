@@ -63,10 +63,10 @@ $ ->
 
   # Handles the click events
   eventHandler = (element) ->
-    $(element).on 'click', (e) ->
+    $(element).bind 'click', (e) ->
       e.preventDefault()
       openModal(element) # Open modal
-    $(element.settings.modalContainer).on 'click', 'a[rel="modal:close"]', (e) ->
+    $(element.settings.modalContainer).bind 'click', 'a[rel="modal:close"]', (e) ->
       e.preventDefault()
       closeModal(element) # Close modal
     $(document).keydown element, (e) ->

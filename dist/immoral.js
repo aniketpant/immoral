@@ -60,11 +60,11 @@
       });
     };
     eventHandler = function(element) {
-      $(element).on('click', function(e) {
+      $(element).bind('click', function(e) {
         e.preventDefault();
         return openModal(element);
       });
-      $(element.settings.modalContainer).on('click', 'a[rel="modal:close"]', function(e) {
+      $(element.settings.modalContainer).bind('click', 'a[rel="modal:close"]', function(e) {
         e.preventDefault();
         return closeModal(element);
       });
