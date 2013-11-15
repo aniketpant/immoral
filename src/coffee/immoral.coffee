@@ -102,7 +102,7 @@ $ ->
     options = element.settings # Get options
 
     $modalContainer = $(options.modalContainer)
-    $modalContent = $(modalContainer).find('.' + options.modalContentClass)
+    $modalContent = $modalContainer.find('.' + options.modalContentClass)
 
     link = $(element).attr('href')
 
