@@ -1,11 +1,11 @@
 {
   "name": "immoral",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/aniketpant/immoral",
   "authors": [
     "Aniket Pant <me@aniketpant.com>"
   ],
-  "description": 'A spunky clean flexible no-forced-design opinionated modal library.',
+  "description": "A spunky clean flexible no-forced-design opinionated modal library.",
   "main": "dist/immoral.min.js",
   "keywords": [
     "jQuery",
