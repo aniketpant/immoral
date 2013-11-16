@@ -59,6 +59,9 @@ module.exports = function(grunt) {
     },
     coffee: {
       compile: {
+        options: {
+          bare: true
+        },
         files: {
           'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
           'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
