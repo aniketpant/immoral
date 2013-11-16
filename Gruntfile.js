@@ -35,7 +35,13 @@ module.exports = function(grunt) {
       },
     },
     qunit: {
-      files: ['test/**/*.html']
+      all: {
+        options: {
+          urls: ['1.6.4', '1.7.0', '1.9.0'].map(function(version) {
+            return 'http://localhost:<%= connect.server.options.port %>/test/immoral.html?jquery=' + version;
+          })
+        }
+      }
     },
     jshint: {
       gruntfile: {
@@ -117,6 +123,13 @@ module.exports = function(grunt) {
         tasks: ['jshint:test', 'qunit']
       },
     },
+    connect: {
+      server: {
+        options: {
+          port: 8085 // This is a random port, feel free to change it.
+        }
+      }
+    }
   });
 
   // These plugins provide necessary tasks.
@@ -127,8 +140,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default task.
   grunt.registerTask('default', ['coffee', 'jshint', 'qunit', 'clean', 'concat', 'uglify']);
+
+  // Test task.
+  grunt.registerTask('test', ['connect', 'jshint', 'qunit']);
 
 };
