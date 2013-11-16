@@ -6,9 +6,7 @@
  * Licensed under the MIT license.
 ###
 
-$ = jQuery
-
-$ ->
+;do ($ = jQuery) ->
   $.fn.immoral = (options) ->
     # Global Settings
     globals = {

@@ -1,12 +1,8 @@
-/*! Immoral - v0.2.2 - 2013-11-15
+/*! Immoral - v0.2.2 - 2013-11-16
 * https://github.com/aniketpant/immoral
 * Copyright (c) 2013 Aniket Pant; Licensed MIT */
 (function() {
-  var $;
-
-  $ = jQuery;
-
-  $(function() {
+  (function($) {
     var applyStyles, closeModal, emptyModal, eventHandler, modalContainerInit, modalInit, modalShadowInit, openModal;
     $.fn.immoral = function(options) {
       var globals;
@@ -158,6 +154,6 @@
       element.settings = $.extend(true, {}, element.settings, options);
       return 'immoralized';
     };
-  });
+  })(jQuery);
 
 }).call(this);
