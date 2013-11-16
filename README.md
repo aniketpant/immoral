@@ -1,5 +1,7 @@
 # Immoral
 
+[![Build Status](https://travis-ci.org/aniketpant/immoral.png?branch=master)](https://travis-ci.org/aniketpant/immoral)
+
 A spunky clean flexible no-forced-design opinionated modal library.
 
 ## Getting Started
