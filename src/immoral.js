@@ -8,11 +8,7 @@
 
 
 (function() {
-  var $;
-
-  $ = jQuery;
-
-  $(function() {
+  (function($) {
     var applyStyles, closeModal, emptyModal, eventHandler, modalContainerInit, modalInit, modalShadowInit, openModal;
     $.fn.immoral = function(options) {
       var globals;
@@ -164,6 +160,6 @@
       element.settings = $.extend(true, {}, element.settings, options);
       return 'immoralized';
     };
-  });
+  })(jQuery);
 
 }).call(this);
