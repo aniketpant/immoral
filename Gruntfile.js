@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     qunit: {
       all: {
         options: {
-          urls: ['1.6.4', '1.7', '1.9'].map(function(version) {
+          urls: ['1.6.4', '1.10.0'].map(function(version) {
             return 'http://localhost:<%= connect.server.options.port %>/test/immoral.html?jquery=' + version;
           })
         }
