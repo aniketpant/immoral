@@ -165,6 +165,7 @@ $(selector).immoral().close();
 ```
 
 ## Release History
+- v0.2.4 - Dec 05, 2013
 - v0.2.3 - Nov 16, 2013
 - v0.2.2 - Nov 15, 2013
 - v0.2.1 - Oct 31, 2013
