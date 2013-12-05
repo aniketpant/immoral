@@ -11,11 +11,11 @@
     # Global Settings
     globals = {
       content: '',
-      modalClass: 'modal',
-      modalShadowClass: 'modal-shadow',
-      modalContainerClass: 'modal-container',
+      modalClass: 'immoral-modal',
+      modalShadowClass: 'immoral-modal-shadow',
+      modalContainerClass: 'immoral-modal-container',
       modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
-      modalContentClass: 'modal-content',
+      modalContentClass: 'immoral-modal-content',
       modalShadow: false,
       modalContainer: false,
       modalStyle: {
@@ -89,10 +89,10 @@
     options = element.settings # Get options
 
     if !$('.' + options.modalContainerClass).length
-      $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>')
+      $('body').append('<div class="' + options.modalContainerClass + '" style="display: none"><div class="' + options.modalClass + '"><div class="' + options.modalContentClass + '"></div></div></div>')
     $.immoral(element,
       {
-        'modalContainer': $('#immoral-modal')
+        'modalContainer': $('.' + options.modalContainerClass)
       }
     )
 
@@ -158,8 +158,8 @@
 
     $modalShadow.css(options.modalShadowStyle)
     $modalContainer.css(options.modalContainerStyle)
-    $modalContainer.find('.modal-content').css(options.modalContentStyle)
-    $modalContainer.find('.modal').css(options.modalStyle)
+    $modalContainer.find('.' + options.modalContentClass).css(options.modalContentStyle)
+    $modalContainer.find('.' + options.modalClass).css(options.modalStyle)
 
   # Method for opening a modal
   $.fn.open = ->

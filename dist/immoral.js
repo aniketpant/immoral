@@ -1,4 +1,4 @@
-/*! Immoral - v0.2.3 - 2013-11-16
+/*! Immoral - v0.2.4 - 2013-12-05
 * https://github.com/aniketpant/immoral
 * Copyright (c) 2013 Aniket Pant; Licensed MIT */
 (function() {
@@ -8,11 +8,11 @@
       var globals;
       globals = {
         content: '',
-        modalClass: 'modal',
-        modalShadowClass: 'modal-shadow',
-        modalContainerClass: 'modal-container',
+        modalClass: 'immoral-modal',
+        modalShadowClass: 'immoral-modal-shadow',
+        modalContainerClass: 'immoral-modal-container',
         modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
-        modalContentClass: 'modal-content',
+        modalContentClass: 'immoral-modal-content',
         modalShadow: false,
         modalContainer: false,
         modalStyle: {
@@ -85,10 +85,10 @@
       var options;
       options = element.settings;
       if (!$('.' + options.modalContainerClass).length) {
-        $('body').append('<div id="immoral-modal" class="' + options.modalContainerClass + '" style="display: none"><div class="modal"><div class="' + options.modalContentClass + '"></div></div></div>');
+        $('body').append('<div class="' + options.modalContainerClass + '" style="display: none"><div class="' + options.modalClass + '"><div class="' + options.modalContentClass + '"></div></div></div>');
       }
       return $.immoral(element, {
-        'modalContainer': $('#immoral-modal')
+        'modalContainer': $('.' + options.modalContainerClass)
       });
     };
     modalInit = function(element) {
@@ -141,8 +141,8 @@
       $modalContainer = options.modalContainer;
       $modalShadow.css(options.modalShadowStyle);
       $modalContainer.css(options.modalContainerStyle);
-      $modalContainer.find('.modal-content').css(options.modalContentStyle);
-      return $modalContainer.find('.modal').css(options.modalStyle);
+      $modalContainer.find('.' + options.modalContentClass).css(options.modalContentStyle);
+      return $modalContainer.find('.' + options.modalClass).css(options.modalStyle);
     };
     $.fn.open = function() {
       return openModal(this);
