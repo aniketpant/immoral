@@ -66,8 +66,8 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
-          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
-          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
+          'src/jquery.immoral.js': 'src-coffee/jquery.immoral.coffee', // 1:1 compile
+          'test/test.js': 'src-coffee/test/test.coffee', // 1:1 compile
         }
       },
       compileBare: {
@@ -75,8 +75,8 @@ module.exports = function(grunt) {
           bare: true
         },
         files: {
-          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
-          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile
+          'src/jquery.immoral.js': 'src-coffee/jquery.immoral.coffee', // 1:1 compile
+          'test/test.js': 'src-coffee/test/test.coffee', // 1:1 compile
         }
       },
       compileJoined: {
@@ -84,8 +84,8 @@ module.exports = function(grunt) {
           join: true
         },
         files: {
-          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
-          'test/test.js': 'src/coffee/test/test.coffee', // 1:1 compile, identical output to join = false
+          'src/jquery.immoral.js': 'src-coffee/jquery.immoral.coffee', // 1:1 compile
+          'test/test.js': 'src-coffee/test/test.coffee', // 1:1 compile, identical output to join = false
         }
       },
       compileWithMaps: {
@@ -93,21 +93,21 @@ module.exports = function(grunt) {
           sourceMap: true
         },
         files: {
-          'src/immoral.js': 'src/coffee/immoral.coffee', // 1:1 compile
+          'src/jquery.immoral.js': 'src-coffee/jquery.immoral.coffee', // 1:1 compile
         }
       },
       glob_to_multiple: {
         expand: true,
         flatten: true,
-        cwd: 'src/coffee/',
-        src: ['*.coffee'],
+        cwd: 'src-coffee/',
+        src: ['**/*.coffee'],
         dest: 'src/',
         ext: '.js'
       }
     },
     watch: {
       coffee: {
-        files: ['src/coffee/**/*.coffee'],
+        files: ['src-coffee/**/*.coffee'],
         tasks: ['coffee:compile']
       },
       gruntfile: {
@@ -143,7 +143,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default task.
-  grunt.registerTask('default', ['connect', 'coffee', 'jshint', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('default', ['connect', 'coffee:compile', 'jshint', 'qunit', 'clean', 'concat', 'uglify']);
 
   // Test task.
   grunt.registerTask('test', ['connect', 'jshint', 'qunit']);
