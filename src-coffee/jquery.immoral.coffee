@@ -45,6 +45,8 @@
         'z-index': '10000001',
         'background': 'transparent',
         'text-align': 'center',
+        'overflow-y': 'auto',
+        '-webkit-overflow-scrolling': 'touch',
       },
       modalContentStyle: {
         'width': '100%',
