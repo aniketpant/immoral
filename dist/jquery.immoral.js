@@ -1,6 +1,6 @@
-/*! Immoral - v0.2.4 - 2013-12-05
+/*! Immoral - v0.2.4 - 2014-03-10
 * https://github.com/aniketpant/immoral
-* Copyright (c) 2013 Aniket Pant; Licensed MIT */
+* Copyright (c) 2014 Aniket Pant; Licensed MIT */
 (function() {
   (function($) {
     var applyStyles, closeModal, emptyModal, eventHandler, modalContainerInit, modalInit, modalShadowInit, openModal;
@@ -41,7 +41,9 @@
           'display': 'none',
           'z-index': '10000001',
           'background': 'transparent',
-          'text-align': 'center'
+          'text-align': 'center',
+          'overflow-y': 'auto',
+          '-webkit-overflow-scrolling': 'touch'
         },
         modalContentStyle: {
           'width': '100%',
