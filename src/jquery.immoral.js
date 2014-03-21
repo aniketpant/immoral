@@ -9,45 +9,41 @@
 
 (function() {
   (function($) {
-    var applyStyles, closeModal, emptyModal, eventHandler, modalContainerInit, modalInit, modalShadowInit, openModal;
+    var applyStyles, closeModal, emptyModal, eventHandler, modalContainerInit, modalInit, openModal;
     $.fn.immoral = function(options) {
       var globals;
       globals = {
         content: '',
         modalClass: 'immoral-modal',
-        modalShadowClass: 'immoral-modal-shadow',
         modalContainerClass: 'immoral-modal-container',
         modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
         modalContentClass: 'immoral-modal-content',
-        modalShadow: false,
         modalContainer: false,
         modalStyle: {
+          'position': 'absolute',
+          'left': '50%',
+          'top': '50%',
           'width': '50%',
           'height': '50%',
-          'margin': '0 auto',
+          'transform': 'translate(-50%, -50%)',
           'background': 'white',
           'text-align': 'left'
-        },
-        modalShadowStyle: {
-          'position': 'fixed',
-          'z-index': '10000000',
-          'background': 'rgba(0,0,0,0.5)',
-          'width': '100%',
-          'height': '100%',
-          'left': '0px',
-          'top': '0px'
         },
         modalContainerStyle: {
           'width': '100%',
           'margin': '0px',
           'position': 'fixed',
-          'top': '0px',
-          'left': '0px',
+          'top': '0',
+          'left': '0',
+          'right': '0',
+          'bottom': '0',
           'height': '100%',
           'display': 'none',
           'z-index': '10000001',
-          'background': 'transparent',
-          'text-align': 'center'
+          'background': 'rgba(0,0,0,.8)',
+          'text-align': 'center',
+          'overflow-y': 'auto',
+          '-webkit-overflow-scrolling': 'touch'
         },
         modalContentStyle: {
           'width': '100%',
@@ -56,7 +52,6 @@
       };
       return this.each(function() {
         this.settings = $.extend(true, {}, globals, options);
-        modalShadowInit(this);
         modalContainerInit(this);
         return eventHandler(this);
       });
@@ -76,16 +71,6 @@
         }
       });
       return true;
-    };
-    modalShadowInit = function(element) {
-      var options;
-      options = element.settings;
-      if (!$('.' + options.modalShadowClass).length) {
-        $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>');
-      }
-      return $.immoral(element, {
-        'modalShadow': $('.' + options.modalShadowClass)
-      });
     };
     modalContainerInit = function(element) {
       var options;
@@ -117,20 +102,16 @@
       return applyStyles(element);
     };
     openModal = function(element) {
-      var $modalContainer, $modalShadow, options;
+      var $modalContainer, options;
       options = element.settings;
-      $modalShadow = $(options.modalShadow);
       $modalContainer = $(options.modalContainer);
       modalInit(element);
-      $modalShadow.fadeIn();
       return $modalContainer.fadeIn();
     };
     closeModal = function(element) {
-      var $modalContainer, $modalShadow, options;
+      var $modalContainer, options;
       options = element.settings;
-      $modalShadow = $(options.modalShadow);
       $modalContainer = $(options.modalContainer);
-      $modalShadow.fadeOut();
       $modalContainer.fadeOut();
       return emptyModal(element);
     };
@@ -141,11 +122,9 @@
       return $modalContainer.find('.' + options.modalContentClass).empty();
     };
     applyStyles = function(element) {
-      var $modalContainer, $modalShadow, options;
+      var $modalContainer, options;
       options = element.settings;
-      $modalShadow = options.modalShadow;
       $modalContainer = options.modalContainer;
-      $modalShadow.css(options.modalShadowStyle);
       $modalContainer.css(options.modalContainerStyle);
       $modalContainer.find('.' + options.modalContentClass).css(options.modalContentStyle);
       return $modalContainer.find('.' + options.modalClass).css(options.modalStyle);
