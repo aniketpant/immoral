@@ -63,8 +63,11 @@
       e.preventDefault()
       closeModal(element) # Close modal
     $(document).keydown element, (e) ->
-        if e.keyCode is 27
-          closeModal(element);
+      if e.keyCode is 27
+        closeModal(element)
+    $(element.settings.modalContainer).click (e) ->
+      if e.target is e.currentTarget
+        closeModal(element)
     return true
 
   # Initialize modal container

@@ -70,6 +70,11 @@
           return closeModal(element);
         }
       });
+      $(element.settings.modalContainer).click(function(e) {
+        if (e.target === e.currentTarget) {
+          return closeModal(element);
+        }
+      });
       return true;
     };
     modalContainerInit = function(element) {
