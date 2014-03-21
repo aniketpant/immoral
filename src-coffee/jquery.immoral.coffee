@@ -12,39 +12,35 @@
     globals = {
       content: '',
       modalClass: 'immoral-modal',
-      modalShadowClass: 'immoral-modal-shadow',
       modalContainerClass: 'immoral-modal-container',
       modalCloseButton: '<a href="#" rel="modal:close">Close</a>',
       modalContentClass: 'immoral-modal-content',
-      modalShadow: false,
       modalContainer: false,
       modalStyle: {
+        'position': 'absolute',
+        'left': '50%',
+        'top': '50%',
         'width': '50%',
         'height': '50%',
-        'margin': '0 auto',
+        'transform': 'translate(-50%, -50%)',
         'background': 'white',
         'text-align': 'left',
-      },
-      modalShadowStyle: {
-        'position': 'fixed',
-        'z-index': '10000000',
-        'background': 'rgba(0,0,0,0.5)',
-        'width': '100%',
-        'height': '100%',
-        'left': '0px',
-        'top': '0px',
       },
       modalContainerStyle: {
         'width': '100%',
         'margin': '0px',
         'position': 'fixed',
-        'top': '0px',
-        'left': '0px',
+        'top': '0',
+        'left': '0',
+        'right': '0',
+        'bottom': '0',
         'height': '100%',
         'display': 'none',
         'z-index': '10000001',
-        'background': 'transparent',
+        'background': 'rgba(0,0,0,.8)',
         'text-align': 'center',
+        'overflow-y': 'auto',
+        '-webkit-overflow-scrolling': 'touch',
       },
       modalContentStyle: {
         'width': '100%',
@@ -55,7 +51,6 @@
     return this.each ->
       this.settings = $.extend true, {}, globals, options # Set each element
 
-      modalShadowInit(this) # Initialize modal shadow
       modalContainerInit(this) # Initialize modal container
       eventHandler(this) # Handle the events
 
@@ -68,21 +63,12 @@
       e.preventDefault()
       closeModal(element) # Close modal
     $(document).keydown element, (e) ->
-        if e.keyCode is 27
-          closeModal(element);
+      if e.keyCode is 27
+        closeModal(element)
+    $(element.settings.modalContainer).click (e) ->
+      if e.target is e.currentTarget
+        closeModal(element)
     return true
-
-  # Initialize modal shadow
-  modalShadowInit = (element) ->
-    options = element.settings # Get options
-
-    if !$('.' + options.modalShadowClass).length
-      $('body').append('<div class="' + options.modalShadowClass + '" style="display: none"></div>')
-    $.immoral(element,
-      {
-        'modalShadow': $('.' + options.modalShadowClass)
-      }
-    )
 
   # Initialize modal container
   modalContainerInit = (element) ->
@@ -121,22 +107,18 @@
   openModal = (element) ->
     options = element.settings # Get options
 
-    $modalShadow = $(options.modalShadow)
     $modalContainer = $(options.modalContainer)
 
     modalInit(element) # Initialize modal
 
-    $modalShadow.fadeIn()
     $modalContainer.fadeIn()
 
   # Private function for closing modal
   closeModal = (element) ->
     options = element.settings # Get options
 
-    $modalShadow = $(options.modalShadow)
     $modalContainer = $(options.modalContainer)
 
-    $modalShadow.fadeOut()
     $modalContainer.fadeOut()
 
     emptyModal(element) # time to clear the modal
@@ -153,10 +135,8 @@
   applyStyles = (element) ->
     options = element.settings # Get options
 
-    $modalShadow = options.modalShadow
     $modalContainer = options.modalContainer
 
-    $modalShadow.css(options.modalShadowStyle)
     $modalContainer.css(options.modalContainerStyle)
     $modalContainer.find('.' + options.modalContentClass).css(options.modalContentStyle)
     $modalContainer.find('.' + options.modalClass).css(options.modalStyle)
